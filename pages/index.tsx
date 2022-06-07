@@ -5,60 +5,55 @@ import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import { fetchGet } from 'libs/fetch';
 import qs from 'qs';
-import { ResponseToEvents } from 'libs/transform';
+import { responseToEvents } from 'libs/transform';
 
 interface IEvent extends CardEventProps {
     id: number,
 }
 
-const upcomingEvents: any[] = [
-    // {
-    //     id: 1,
-    //     title: 'Hahaha',
-    //     poster: '/images/poster1.jpg',
-    //     date: '19 April 2002',
-    // },
-];
+const qEvents = (operator: string) => qs.stringify({
+    populate: '*',
+    filters: {
+        date: {
+            [operator]: new Date().toISOString()
+        }
+    }
+});
 
-const historyEvent: IEvent[] = [
-    {
-        id: 1,
-        title: 'Hahaha',
-        poster: '/images/poster1.jpg',
-        date: '19 April 2002',
-    },
-    {
-        id: 2,
-        title: 'Makan-makan dibayari',
-        poster: '/images/poster1.jpg',
-        date: '19 April 2003',
-    },
-    {
-        id: 3,
-        title: 'Makan-makan dibayari',
-        poster: '/images/poster1.jpg',
-        date: '19 April 2003',
-    },
-    {
-        id: 4,
-        title: 'Makan-makan dibayari',
-        poster: '/images/poster1.jpg',
-        date: '19 April 2003',
-    },
-    {
-        id: 5,
-        title: 'Makan-makan dibayari',
-        poster: '/images/poster1.jpg',
-        date: '19 April 2003',
-    },
-];
+export const getServerSideProps: GetServerSideProps = async () => {
+    // console.log('Date : ', `${de.getFullYear()}-${de.getMonth()}-${de.getDate()}`);
+    
+    try {
+        const resUpcomingEvents = await fetchGet(process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvents('$gt')}`)
 
-interface PageProps {
-    events: any
+        const resHistoryEvents = await fetchGet(process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvents('$lt')}`)
+
+        const res = await Promise.all([resUpcomingEvents.json(), resHistoryEvents.json()]);
+    
+        return {
+            props:{
+                upcomingEvents: responseToEvents(res[0]),
+                historyEvents: responseToEvents(res[1])
+            }
+        }
+    } catch (error) {
+        return {
+            props: {
+                upcomingEvents: {
+                    data: []
+                }
+            }
+        }
+    }
 }
 
-const Home: NextPage<PageProps> = ({ events }) => {
-    // console.log('Home Page ', events.data);
+interface PageProps {
+    upcomingEvents: any,
+    historyEvents: any,
+}
+
+const Home: NextPage<PageProps> = ({ upcomingEvents, historyEvents }) => {
+    console.log('Home Page ', upcomingEvents);
     return (
         <Main>
             <div className="relative w-full h-[520px]">
@@ -84,18 +79,20 @@ const Home: NextPage<PageProps> = ({ events }) => {
             </h3>
 
             <div
-                className={`flex p-8 space-x-8 ${
-                    upcomingEvents.length > 0 ? '' : 'justify-center'
+                className={`md:flex md:justify-center md:flex-wrap -m-4 p-8 ${
+                    upcomingEvents.data.length ? '' : ''
                 }`}
             >
-                {upcomingEvents.length > 0
-                    ? upcomingEvents.map((event) => (
-                          <CardEvent
-                              key={event.id}
-                              title={event.title}
-                              poster={event.poster}
-                              date={event.date}
-                          />
+                {upcomingEvents.data.length
+                    ? upcomingEvents.data.map((event: any) => (
+                        <CardEvent
+                            className="flex-shrink-0 m-4"
+                            key={event.id}
+                            title={event.title}
+                            poster={process.env.NEXT_PUBLIC_BACKEND_API + event.poster}
+                            eventTypes={event.eventTypes}
+                            date={new Date(event.date).toDateString()}
+                        />
                       ))
                     : 'No event yet'}
             </div>
@@ -105,7 +102,7 @@ const Home: NextPage<PageProps> = ({ events }) => {
             </h3>
 
             <div className="md:flex md:justify-center md:flex-wrap md:-m-4 p-8 space-y-4">
-                {events.data.map((event: any) => (
+                {historyEvents?.data.map((event: any) => (
                     <CardEvent
                         className="flex-shrink-0 md:m-4"
                         key={event.id}
@@ -116,51 +113,9 @@ const Home: NextPage<PageProps> = ({ events }) => {
                     />
                 ))}
             </div>
-            <div className="h-[1000px]"></div>
         </Main>
     );
 };
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    const de = new Date();
-
-    const qEvent = qs.stringify({
-        populate: '*',
-        filters: {
-            date: {
-                $lt: de.toISOString()
-            }
-        }
-    });
-
-    console.log('qEvent :', qEvent);
-
-    
-    console.log('Date : ', `${de.getFullYear()}-${de.getMonth()}-${de.getDate()}`);
-    
-    
-    const fetchUrl = process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvent}`
-
-    try {
-        const resEvent = await fetchGet(fetchUrl)
-
-        const events = await resEvent.json()
-        
-        return {
-            props:{
-                events: ResponseToEvents(events)
-            }
-        }
-    } catch (error) {
-        return {
-            props: {
-                events: {
-                    data: []
-                }
-            }
-        }
-    }
- 
-}
