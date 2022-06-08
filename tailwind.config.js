@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        monumentExtended: ["Monument Extended", "sans-serif"]
+        monumentExtended: ["Monument Extended", "sans-serif"],
+        openSans: ['Open Sans', 'sans-serif']
       }
     },
   },
