@@ -11,7 +11,7 @@ const NavbarLink: FC<Props> = ({href, caption, isDropdown = false}) => {
     return (
         <li>
             <Link href={href}>
-                <span className="inline-flex items-center cursor-pointer py-2 pr-4 pl-8 text-gray-700 hover:text-blue-700 dark:hover:text-white dark:text-gray-400">
+                <span className="inline-flex items-center py-2 pr-4 pl-8 text-gray-700 hover:text-blue-700 cursor-pointer dark:hover:text-white dark:text-gray-400">
                     {caption}
                     {isDropdown && (
                         <svg
