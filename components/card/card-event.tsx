@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {FC} from 'react';
+import Tag from '../tag/tag';
 
 export interface Props {
     className?: string;
@@ -22,26 +22,19 @@ const CardEvent = ({
         >
             <div className="relative aspect-square">
                 <Image
-                    className="object-cover"
+                    className="object-cover rounded-md"
                     src={poster}
                     layout="fill"
                     alt="Poster"
                 />
             </div>
-            <div className="inline-flex flex-wrap -mx-1 mt-6">
+            <div className="inline-flex flex-wrap -mx-1 mt-5">
                 {eventTypes?.map((eventType) => (
-                    <div
-                        key={eventType.id}
-                        className="mx-1 px-2 py-1 rounded-md w-fit bg-purple-200"
-                    >
-                        <span className="text-purple-900 font-medium text-xs ">
-                            {eventType.name}
-                        </span>
-                    </div>
+                   <Tag key={eventType.id} caption={eventType.name} />
                 ))}
             </div>
 
-            <h5 className="mt-2 text-md font-normal font-monumentExtended text-gray-900 dark:text-white">
+            <h5 className="mt-2 text-md font-medium text-gray-900 dark:text-white">
                 {title}
             </h5>
             <p className=" mt-4 text-xs font-medium text-gray-700 dark:text-gray-400">
