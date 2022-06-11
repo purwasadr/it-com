@@ -101,10 +101,10 @@ const Home: NextPage<PageProps> = ({ upcomingEvents, historyEvents }) => {
                 Event History
             </h3>
 
-            <div className="md:flex md:justify-center md:flex-wrap md:-m-4 p-8 space-y-4">
+            <div className="flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4">
                 {historyEvents?.data.map((event: any) => (
                     <CardEvent
-                        className="flex-shrink-0 md:m-4"
+                        className="flex-shrink-0"
                         key={event.id}
                         title={event.title}
                         poster={process.env.NEXT_PUBLIC_BACKEND_API + event.poster}
