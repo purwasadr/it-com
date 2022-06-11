@@ -17,10 +17,10 @@ const Navbar: FC = () => {
                     </Link>
                 </div>
                 <div className="flex items-center">
-                    <ul className="flex flex-row flex-wrap pl-4 text-sm font-semibold">
-                        <NavbarLink href='#' caption="Home" />
+                    <ul className="flex flex-row flex-wrap pl-4 text-sm font-medium">
+                        <NavbarLink href='/' caption="Home" />
                         <NavbarLink href="#" caption="Organization" isDropdown={true}/>
-                        <NavbarLink href="#" caption="Division"/>
+                        <NavbarLink href="/divisions" caption="Division"/>
                         <NavbarLink href="#" caption="Contact"/>
                     </ul>
                 </div>
