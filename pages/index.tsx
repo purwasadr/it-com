@@ -1,11 +1,11 @@
 import CardEvent, { Props as CardEventProps } from '@/components/card/card-event';
-import Main from '@/components/layouts/main';
 import type {NextPage} from 'next';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import { fetchGet } from 'libs/fetch';
 import qs from 'qs';
 import { responseToEvents } from 'libs/transform';
+import Primary from '@/components/layouts/primary';
 
 interface IEvent extends CardEventProps {
     id: number,
@@ -55,7 +55,7 @@ interface PageProps {
 const Home: NextPage<PageProps> = ({ upcomingEvents, historyEvents }) => {
     console.log('Home Page ', upcomingEvents);
     return (
-        <Main>
+        <Primary noPadding={true}>
             <div className="relative w-full h-[520px]">
                 <Image
                     className="object-cover brightness-[.65]"
@@ -113,7 +113,7 @@ const Home: NextPage<PageProps> = ({ upcomingEvents, historyEvents }) => {
                     />
                 ))}
             </div>
-        </Main>
+        </Primary>
     );
 };
 

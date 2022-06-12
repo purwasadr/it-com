@@ -3,10 +3,11 @@ import { FC, ReactNode } from 'react';
 import Navbar from '../navbar/navbar';
 
 interface Props {
-    children: ReactNode
+    children: ReactNode,
+    noPadding?: boolean
 }
 
-const Main: FC<Props> = ({ children }) => {
+const Primary = ({ noPadding = false, children }: Props) => {
     return (
         <>
             <Head>
@@ -15,11 +16,11 @@ const Main: FC<Props> = ({ children }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar/>
-            <main>
+            <main className={`${!noPadding ? 'py-6 px-7 sm:px-5' : ''}`}>
                 {children}
             </main>
         </>
     )
 }
 
-export default Main;
+export default Primary;
