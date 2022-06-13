@@ -1,43 +1,54 @@
 import Primary from '@/components/layouts/primary';
 import Link from 'next/link';
+import {GetServerSideProps, NextPage} from 'next';
+import { fetchGet } from 'libs/fetch';
 
-const divisionItems: any[] = [
-    {
-        id: 1,
-        name: 'Mage'
-    },
-    {
-        id: 2,
-        name: 'Assassins'
-    },
-    {
-        id: 3,
-        name: 'Archer'
-    },
-    {
-        id: 4,
-        name: 'Tank'
-    },
-]
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    try {
+        const reqDivisions = await fetchGet(process.env.NEXT_PUBLIC_BACKEND_API + '/api/divisions?');
+        const resDivisions = await reqDivisions.json();
 
-const Divisions = () => {
+        return {
+            props: {
+                divisions: resDivisions,
+            },
+        };
 
+    } catch (error) {
+        return {
+            props: {
+                divisions: {
+                    error: error
+                },
+            },
+        };
+    }
+};
 
+interface PageProps {
+    divisions: any
+}
+
+const Divisions: NextPage<PageProps> = ({ divisions }) => {
     return (
         <Primary>
-            <h1 className="text-2xl text-center font-monumentExtended">Division<br />IT COM GEN 9</h1>
-           
+            <h1 className="text-2xl text-center font-monumentExtended">
+                Division
+                <br />
+                IT COM GEN 9
+            </h1>
+
             <div className="mt-6 px-4 flex flex-col items-center space-y-4">
-                {
-                    divisionItems.map(items => (
-                        <Link key={items.id} href="#">
-                            <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">{items.name}</a>
-                        </Link>
-                    ))
-                }
+                {divisions.data.map((item: any) => (
+                    <Link key={item.id} href={`/divisions/${item.slug}`}>
+                        <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">
+                            {item.name}
+                        </a>
+                    </Link>
+                ))}
             </div>
         </Primary>
     );
-}
+};
 
 export default Divisions;
