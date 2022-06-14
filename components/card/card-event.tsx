@@ -18,28 +18,31 @@ const CardEvent = ({
 }: Props) => {
     return (
         <div
-            className={`p-3 w-full md:w-[260px] bg-white rounded-md border border-opacity-20 border-black hover:bg-gray-100 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
+            className={`w-full md:w-[260px] bg-white rounded-md border border-opacity-20 border-black hover:bg-gray-100 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
         >
             <div className="relative aspect-square">
                 <Image
-                    className="object-cover rounded-md"
+                    className=""
                     src={poster}
                     layout="fill"
                     alt="Poster"
+                    objectFit="cover"
                 />
             </div>
-            <div className="inline-flex flex-wrap -mx-1 mt-5">
-                {eventTypes?.map((eventType) => (
-                   <Tag key={eventType.id} caption={eventType.name} />
-                ))}
-            </div>
+            <div className="p-4">
+                <div className="inline-flex flex-wrap -mx-1">
+                    {eventTypes?.map((eventType) => (
+                    <Tag key={eventType.id} caption={eventType.name} />
+                    ))}
+                </div>
 
-            <h5 className="mt-2 text-md font-medium text-gray-900 dark:text-white">
-                {title}
-            </h5>
-            <p className=" mt-4 text-xs font-medium text-gray-700 dark:text-gray-400">
-                {date}
-            </p>
+                <h5 className="mt-2 text-md font-medium text-gray-900 dark:text-white">
+                    {title}
+                </h5>
+                <p className="mt-4 text-xs font-medium text-gray-700 dark:text-gray-400">
+                    {date}
+                </p>
+            </div>
         </div>
     );
 };
