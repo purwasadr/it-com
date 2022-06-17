@@ -8,19 +8,23 @@ interface PropsMenuLink {
     children: React.ReactNode,
 }
 
-const MenuLink = ({ active, href, children, ...rest }: PropsMenuLink) => (
-    <Link href={href}>
-        <a
-            className={`${
-                active
-                    ? 'bg-gray-100'
-                    : 'text-gray-900'
-            } inline-flex w-full items-center px-4 py-3 text-sm`}
-        {...rest}>
-            {children}
-        </a>
-    </Link>
-)
+const MenuLink = ({ active, href, children, ...rest }: PropsMenuLink) => {
+    
+    return (
+        <Link href={href}>
+            <a
+                className={`${
+                    active
+                        ? 'bg-gray-100'
+                        : 'text-gray-900'
+                } inline-flex w-full items-center px-4 py-3 text-sm`}
+            {...rest}>
+                {children}
+            </a>
+        </Link>
+    )
+}
+    
 
 const Navbar = () => {
 
