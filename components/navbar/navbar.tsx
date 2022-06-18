@@ -1,5 +1,6 @@
 import {Menu} from '@headlessui/react';
 import Link from 'next/link';
+import { forwardRef, ForwardRefRenderFunction, Ref } from 'react';
 import NavbarLink from './navbar-link';
 
 interface PropsMenuLink {
@@ -8,7 +9,7 @@ interface PropsMenuLink {
     children: React.ReactNode,
 }
 
-const MenuLink = ({ active, href, children, ...rest }: PropsMenuLink) => {
+const MenuLink = forwardRef<HTMLAnchorElement, PropsMenuLink>(({ active, href, children, ...rest }, ref) => {
     
     return (
         <Link href={href}>
@@ -23,8 +24,10 @@ const MenuLink = ({ active, href, children, ...rest }: PropsMenuLink) => {
             </a>
         </Link>
     )
-}
-    
+});
+
+MenuLink.displayName = 'MenuLink'
+
 
 const Navbar = () => {
 
