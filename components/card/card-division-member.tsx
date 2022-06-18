@@ -3,7 +3,7 @@ import Image from 'next/image';
 export interface Props {
     className?: string;
     title: string;
-    poster: string;
+    photo: string;
     role: string;
     kelas?: string;
 }
@@ -11,7 +11,7 @@ export interface Props {
 const CardDivisionMember = ({
     className = '',
     title,
-    poster = '/',
+    photo = '/',
     role,
     kelas,
 }: Props) => {
@@ -23,7 +23,7 @@ const CardDivisionMember = ({
             <div className="relative mt-4 aspect-square">
                 <Image
                     className=""
-                    src={poster}
+                    src={photo}
                     layout="fill"
                     alt="Poster"
                     objectFit="cover"
