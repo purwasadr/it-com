@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         monumentExtended: ["Monument Extended", "sans-serif"],
-        openSans: ['Open Sans', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif']
       }
     },
   },
