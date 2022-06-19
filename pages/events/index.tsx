@@ -22,9 +22,6 @@ const Events = () => {
         [isLoading, hasMore]
     );
 
-    console.log('Events:', events);
-    console.log('PageNum:', pageNum);
-
     return (
         <Primary>
             <div
@@ -37,6 +34,7 @@ const Events = () => {
                           events.length === i + 1 ? (
                               <CardEvent
                                   className="md:flex-shrink-0"
+                                  href={`/events/detail/${event.id}`}
                                   key={event.id}
                                   title={event.title}
                                   poster={
@@ -50,6 +48,7 @@ const Events = () => {
                           ) : (
                               <CardEvent
                                   className="md:flex-shrink-0"
+                                  href={`/events/detail/${event.id}`}
                                   key={event.id}
                                   title={event.title}
                                   poster={
@@ -58,7 +57,7 @@ const Events = () => {
                                   }
                                   eventTypes={event.eventTypes}
                                   date={new Date(event.date).toDateString()}
-                              />
+                                />
                           )
                       )
                     : 'No event yet'}
