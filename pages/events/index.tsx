@@ -22,18 +22,33 @@ const Events = () => {
         [isLoading, hasMore]
     );
 
+    const CardEventLoc = (event: any, lastElement: boolean = false) => {
+        return <CardEvent
+                    className=""
+                    href={`/events/detail/${event.id}`}
+                    key={event.id}
+                    title={event.title}
+                    poster={
+                        process.env.NEXT_PUBLIC_BACKEND_API +
+                        event.poster
+                    }
+                    eventTypes={event.eventTypes}
+                    inputRef={lastElement ? lastBookElementRef : undefined}
+                    date={new Date(event.date).toDateString()}
+                    />
+    }
+
     return (
         <Primary>
             <div
-                className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4 ${
+                className={`grid sm:grid-cols-[repeat(2,260px)] lg:grid-cols-[repeat(3,260px)] xl:grid-cols-[repeat(4,260px)] gap-8 place-content-center ${
                     events.length ? '' : ''
                 }`}
             >
-                {events.length
-                    ? events.map((event: any, i: number) =>
+                {events.map((event: any, i: number) =>
                           events.length === i + 1 ? (
                               <CardEvent
-                                  className="md:flex-shrink-0"
+                                  className=""
                                   href={`/events/detail/${event.id}`}
                                   key={event.id}
                                   title={event.title}
@@ -47,7 +62,7 @@ const Events = () => {
                               />
                           ) : (
                               <CardEvent
-                                  className="md:flex-shrink-0"
+                                  className=""
                                   href={`/events/detail/${event.id}`}
                                   key={event.id}
                                   title={event.title}
@@ -59,9 +74,11 @@ const Events = () => {
                                   date={new Date(event.date).toDateString()}
                                 />
                           )
-                      )
-                    : 'No event yet'}
+                      )}
             </div>
+            {/* {events.length <= 0 && !isLoading && !error && <div>No Event yet</div>} */}
+            {isLoading && <div className='flex justify-center mt-4'>Loading...</div>}
+            {!isLoading && error && <div className='flex justify-center mt-4'>Error get data</div>}
         </Primary>
     );
 };
