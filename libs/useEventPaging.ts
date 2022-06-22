@@ -36,7 +36,8 @@ function useEventPaging(pageNum: number) {
         setIsLoading(false);
       })
       .catch((err: any) => {
-        
+        if (abortController.signal.aborted) return
+        setIsLoading(false);
         setError(err);
       });
 
