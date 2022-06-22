@@ -1,4 +1,3 @@
-import Primary from '@/components/layouts/primary';
 import Link from 'next/link';
 import {GetServerSideProps, NextPage} from 'next';
 import { fetchGet } from 'libs/fetch';
@@ -15,10 +14,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         };
 
     } catch (error) {
+        // console.log('divisionGssp:', error);
+        
         return {
             props: {
                 divisions: {
-                    error: error
+                    error: 'Error getting data'
                 },
             },
         };
@@ -31,7 +32,7 @@ interface PageProps {
 
 const Divisions: NextPage<PageProps> = ({ divisions }) => {
     return (
-        <Primary>
+        <>
             <h1 className="text-2xl text-center font-monumentExtended">
                 Division
                 <br />
@@ -39,7 +40,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
             </h1>
 
             <div className="mt-6 px-4 flex flex-col items-center space-y-4">
-                {divisions.data.map((item: any) => (
+                {divisions.data?.map((item: any) => (
                     <Link key={item.id} href={`/divisions/${item.slug}`}>
                         <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">
                             {item.name}
@@ -47,7 +48,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
                     </Link>
                 ))}
             </div>
-        </Primary>
+        </>
     );
 };
 
