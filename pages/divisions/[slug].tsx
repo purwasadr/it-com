@@ -1,5 +1,4 @@
 import CardDivisionMember from '@/components/card/card-division-member';
-import Primary from '@/components/layouts/primary';
 import {fetchGet} from 'libs/fetch';
 import {GetServerSideProps, NextPage} from 'next';
 import qs from 'qs';
@@ -71,7 +70,7 @@ interface PropsPage {
 
 const DivisionMember: NextPage<PropsPage> = ({division, divisionMembers}) => {
     return (
-        <Primary>
+        <>
             <h1 className="font-monumentExtended text-center text-2xl">
                 Division
                 <br />
@@ -83,15 +82,15 @@ const DivisionMember: NextPage<PropsPage> = ({division, divisionMembers}) => {
                         className="md:flex-shrink-0"
                         key={item.id}
                         title={item.name}
-                        poster={
-                            process.env.NEXT_PUBLIC_BACKEND_API + item.photo
+                        photo={
+                            item.photo ? process.env.NEXT_PUBLIC_BACKEND_API + item.photo : undefined
                         }
                         role={item.role}
                         kelas={item.kelas}
                     />
                 ))}
             </div>
-        </Primary>
+        </>
     );
 };
 
@@ -109,9 +108,9 @@ const responseToDivisionMembers = (res: any) => ({
     ...res,
     data: res.data.map((item: any) => ({
         id: item.id,
-        name: item.profile.name,
-        photo: item.profile.photo.formats.thumbnail.url,
+        name: item.profile?.name ? item.profile?.name : null,
+        photo: item.profile?.photo.formats.medium.url ? item.profile?.photo.formats.medium.url : null,
         role: item.role,
-        kelas: item.profile.kelas
+        kelas: item.profile?.kelas ? item.profile?.kelas : null
     })),
 });
