@@ -1,66 +1,48 @@
 import CardEvent, {Props as CardEventProps} from '@/components/card/card-event';
-import type {NextPage} from 'next';
+import type {InferGetServerSidePropsType, NextPage} from 'next';
 import Image from 'next/image';
 import {GetServerSideProps} from 'next';
-import {fetchGet} from 'libs/fetch';
-import qs from 'qs';
-import {responseToEvents} from 'libs/transform';
+import { toEvents } from 'utils/transform';
 import ButtonLink from '@/components/button-link';
-
-const qEvents = (operator: string) =>
-    qs.stringify({
-        populate: '*',
-        filters: {
-            date: {
-                [operator]: new Date().toISOString(),
-            },
-        },
-    });
+import EventModel, { EventItem } from 'models/event';
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    // console.log('Date : ', `${de.getFullYear()}-${de.getMonth()}-${de.getDate()}`);
-
     try {
-        const reqUpcomingEvents =  fetchGet(
-            process.env.NEXT_PUBLIC_BACKEND_API +
-                `/api/events?${qEvents('$gt')}`
-        );
+        const res = [
+            EventModel.getUpcomingEvents().then((res) => res.json()),
+            EventModel.getHistoryEvents().then((res) => res.json()),
+        ];
 
-        const reqHistoryEvents = fetchGet(
-            process.env.NEXT_PUBLIC_BACKEND_API +
-                `/api/events?${qEvents('$lt')}`
-        );
-
-        const res = await Promise.all([
-            reqUpcomingEvents,
-            reqHistoryEvents,
-        ]);
-
-        const [resUpcomingEvents, resHistoryEvents] = await Promise.all([res[0].json(), res[1].json()])
+        const [resUpcomingEvents, resHistoryEvents] = await Promise.all([res[0], res[1]]);
 
         return {
             props: {
-                upcomingEvents: responseToEvents(resUpcomingEvents),
-                historyEvents: responseToEvents(resHistoryEvents),
+                upcomingEvents: {
+                    data: toEvents(resUpcomingEvents.data)
+                },
+                historyEvents: {
+                   data: toEvents(resHistoryEvents.data)
+                },
             },
         };
     } catch (error) {
-       
         console.log('Error in gssp:', (error as Error).message);
         return {
             props: {
                 upcomingEvents: {
-                    data: [],
                     error: 'Cannot get data',
                 },
+                historyEvents: {
+                    error: 'Cannot get data'
+                }
             },
         };
     }
 };
 
 interface PageProps {
-    upcomingEvents: any;
-    historyEvents: any;
+    upcomingEvents: { data?: EventItem[], error?: string };
+    historyEvents: { data?: EventItem[], error?: string };
 }
 
 const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
@@ -87,59 +69,64 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                 </div>
             </section>
             <section className="max-w-[90rem] mx-auto">
-                <h3 className="mt-12 text-2xl uppercase text-center font-monumentExtended">
-                    Upcoming Events
-                </h3>
+                <section>
+                    <h3 className="mt-12 text-2xl uppercase text-center font-monumentExtended">
+                        Upcoming Events
+                    </h3>
 
-                <div
-                    className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4 ${
-                        upcomingEvents.data.length ? '' : ''
-                    }`}
-                >
-                    {upcomingEvents.data.length
-                        ? upcomingEvents.data.map((event: any) => (
-                            <CardEvent
-                                className="md:flex-shrink-0"
-                                href={`/events/detail/${event.id}`}
-                                key={event.id}
-                                title={event.title}
-                                poster={
-                                    process.env.NEXT_PUBLIC_BACKEND_API +
-                                    event.poster
-                                }
-                                eventTypes={event.eventTypes}
-                                date={new Date(event.date).toDateString()}
-                            />
-                        ))
-                        : 'No event yet'}
-                </div>
+                    <section
+                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4 ${
+                            upcomingEvents.data?.length ? '' : ''
+                        }`}
+                    >
+                    {upcomingEvents.data?.map((event: any) => (
+                                <CardEvent
+                                    className="md:flex-shrink-0"
+                                    href={`/events/detail/${event.id}`}
+                                    key={event.id}
+                                    title={event.title}
+                                    poster={
+                                        process.env.NEXT_PUBLIC_BACKEND_API +
+                                        event.poster
+                                    }
+                                    eventTypes={event.eventTypes}
+                                    date={new Date(event.date).toDateString()}
+                                />
+                            ))}
+                        <article>{!upcomingEvents.data ? 'No event yet' : ''}</article>
+                    </section>
+                </section>
+               
+                <section>
+                    <h3 className="text-2xl mt-12 uppercase text-center font-monumentExtended">
+                        Event History
+                    </h3>
 
-                <h3 className="text-2xl mt-12 uppercase text-center font-monumentExtended">
-                    Event History
-                </h3>
+                    <section className="flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4">
+                        {historyEvents.data?.map((event: any) => (
+                                <CardEvent
+                                    className="flex-shrink-0"
+                                    href={`/events/detail/${event.id}`}
+                                    key={event.id}
+                                    title={event.title}
+                                    poster={
+                                        process.env.NEXT_PUBLIC_BACKEND_API +
+                                        event.poster
+                                    }
+                                    eventTypes={event.eventTypes}
+                                    date={new Date(event.date).toDateString()}
+                                />
+                            ))}
+                        <article className='text-center'>{!historyEvents.data ? 'No event yet' : ''}</article>
+                    </section>                    
+                </section>
+                
 
-                <div className="flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4">
-                    {historyEvents?.data.length
-                        ? historyEvents?.data.map((event: any) => (
-                            <CardEvent
-                                className="flex-shrink-0"
-                                href={`/events/detail/${event.id}`}
-                                key={event.id}
-                                title={event.title}
-                                poster={
-                                    process.env.NEXT_PUBLIC_BACKEND_API +
-                                    event.poster
-                                }
-                                eventTypes={event.eventTypes}
-                                date={new Date(event.date).toDateString()}
-                            />
-                        ))
-                        : 'No Event yet'}
-                </div>
-
-                <div className="flex justify-center mt-4"> 
-                    <ButtonLink href={"/events"} variant='outline'>See all events</ButtonLink>
-                </div>
+                <section>
+                    <div className="flex justify-center mt-4"> 
+                        <ButtonLink href={"/events"} variant='outline'>See all events</ButtonLink>
+                    </div>
+                </section>
                 <div className="mt-4"></div>
             </section>
         </>
