@@ -1,7 +1,7 @@
 import qs from 'qs';
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchGet } from './fetch';
-import { responseToEvents } from './transform';
+import { toEvents } from '../utils/transform';
 
 function useEventPaging(pageNum: number) {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,12 +27,12 @@ function useEventPaging(pageNum: number) {
         `/api/events?${qEvents}`, { signal:  abortController.signal })
         .then(res => res.json())
       .then((res) => {
-        const trRes = responseToEvents(res);
+        const trData = toEvents(res.data);
         setEvents((prev: any[]) => {
-          // return [...prev, ...trRes.data];
-          return Array.from(new Map([...prev, ...trRes.data].map(item => [item['id'], item])).values());
+          // return [...prev, ...trData.data];
+          return Array.from(new Map([...prev, ...trData].map(item => [item['id'], item])).values());
         });
-        setHasMore(trRes.meta.pagination.page < trRes.meta.pagination.pageCount);
+        setHasMore(res.meta.pagination.page < res.meta.pagination.pageCount);
         setIsLoading(false);
       })
       .catch((err: any) => {
