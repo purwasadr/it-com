@@ -1,29 +1,30 @@
-import CardEvent, {Props as CardEventProps} from '@/components/card/card-event';
+import CardEvent from '@/components/card/card-event';
 import type {InferGetServerSidePropsType, NextPage} from 'next';
 import Image from 'next/image';
 import {GetServerSideProps} from 'next';
 import { toEvents } from 'utils/transform';
 import ButtonLink from '@/components/button-link';
 import EventModel, { EventItem } from 'models/event';
+import { removeUndefined } from 'utils';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
         const res = [
-            EventModel.getUpcomingEvents().then((res) => res.json()),
-            EventModel.getHistoryEvents().then((res) => res.json()),
+            EventModel.getUpcomingEvents(),
+            EventModel.getHistoryEvents(),
         ];
 
         const [resUpcomingEvents, resHistoryEvents] = await Promise.all([res[0], res[1]]);
 
         return {
-            props: {
+            props: removeUndefined({
                 upcomingEvents: {
                     data: toEvents(resUpcomingEvents.data)
                 },
                 historyEvents: {
                    data: toEvents(resHistoryEvents.data)
                 },
-            },
+            }),
         };
     } catch (error) {
         console.log('Error in gssp:', (error as Error).message);
@@ -47,6 +48,7 @@ interface PageProps {
 
 const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
     console.log('Home Page ', upcomingEvents);
+
     return (
         <>
             <section>
@@ -120,8 +122,6 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                         <article className='text-center'>{!historyEvents.data ? 'No event yet' : ''}</article>
                     </section>                    
                 </section>
-                
-
                 <section>
                     <div className="flex justify-center mt-4"> 
                         <ButtonLink href={"/events"} variant='outline'>See all events</ButtonLink>
