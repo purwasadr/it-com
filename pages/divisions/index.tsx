@@ -1,21 +1,22 @@
 import Link from 'next/link';
 import {GetServerSideProps, NextPage} from 'next';
 import { fetchGet } from 'libs/fetch';
+import DivisionModel, { Division } from 'models/division';
+import { removeUndefined } from 'utils';
+import { toDivisions } from 'utils/transform';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
-        const reqDivisions = await fetchGet(process.env.NEXT_PUBLIC_BACKEND_API + '/api/divisions?');
-        const resDivisions = await reqDivisions.json();
-
-        return {
-            props: {
-                divisions: resDivisions,
-            },
-        };
-
-    } catch (error) {
-        // console.log('divisionGssp:', error);
+        const divisions = await DivisionModel.getDivisions();
         
+        return {
+            props: removeUndefined({ 
+                divisions: {
+                    data: toDivisions(divisions.data)
+                 }
+            }),
+        };
+    } catch (error) {
         return {
             props: {
                 divisions: {
@@ -27,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 interface PageProps {
-    divisions: any
+    divisions: { data?: Division[], error?: string }
 }
 
 const Divisions: NextPage<PageProps> = ({ divisions }) => {
