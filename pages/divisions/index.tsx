@@ -38,8 +38,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
                 <br />
                 IT COM GEN 9
             </h1>
-
-            <div className="mt-6 px-4 flex flex-col items-center space-y-4">
+            <section className="mt-6 px-4 flex flex-col items-center space-y-4">
                 {divisions.data?.map((item: any) => (
                     <Link key={item.id} href={`/divisions/${item.slug}`}>
                         <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">
@@ -47,7 +46,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
                         </a>
                     </Link>
                 ))}
-            </div>
+            </section>
         </>
     );
 };
