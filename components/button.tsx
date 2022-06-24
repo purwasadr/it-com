@@ -13,7 +13,7 @@ const buttonClassDark =
 
 const Button = ({
     type = 'submit',
-    variant = 'fill',
+    variant = 'outline',
     className = '',
     disabled = false,
     children = '',
