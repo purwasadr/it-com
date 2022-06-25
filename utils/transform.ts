@@ -1,18 +1,8 @@
+import { Contact } from 'models/contact';
+import { Division } from 'models/division';
 import { Event, EventItem } from 'models/event';
-import { ResEvent } from '../libs/types';
+import { ResEvent } from '../types/types';
 
-export const responseToEvents = (res: any) => {
-    return {
-        ...res,
-        data : res.data.map((event: any): ResEvent => ({
-            id: event.id,
-            title: event.title,
-            poster: event.poster?.formats.small.url,
-            eventTypes: event.event_types,
-            date: event.date,
-        }))
-    }
-}
 export const toEvents = (data: any[]) => {
     return data.map((event: any): EventItem => ({
             id: event.id,
@@ -23,20 +13,6 @@ export const toEvents = (data: any[]) => {
         }))
 }
 
-export const responseToEvent = (res: any) => {
-    const event = res.data;
-    return {
-        ...res,
-        data: {
-            title: event.title,
-            description: event.description,
-            poster: event.poster?.formats.small.url,
-            eventTypes: event.event_types,
-            date: event.date,
-            location: event.location
-        }
-    }
-}
 export const toEvent = (data: any): Event => {
     return {
             id: data.id,
@@ -49,3 +25,17 @@ export const toEvent = (data: any): Event => {
         }
 }
 
+export const toDivisions = (data: any[]) => {
+    return data.map((item): Division => ({
+        id: item.id,
+        slug: item.slug,
+        name: item.name
+    }));
+}
+
+export const toContacts = (data: any[]) => {
+    return data.map((item): Contact => ({
+        id: item.id,
+        name: item.name
+    }));
+}
