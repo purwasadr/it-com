@@ -23,7 +23,7 @@ const Events = () => {
     const {isLoading, error, events, hasMore} = useEventPaging(pageNum);
 
     const observer = useRef<IntersectionObserver>();
-    const lastBookElementRef = useCallback(
+    const lastEventElementRef = useCallback(
         (node: any) => {
             if (isLoading) return;
             if (observer.current) observer.current.disconnect();
@@ -46,7 +46,7 @@ const Events = () => {
             >
                 {events.map((event: any, i: number) =>
                           events.length === i + 1 ? (
-                              <CardEventLoc event={event} lastElementRef={lastBookElementRef} />
+                              <CardEventLoc event={event} lastElementRef={lastEventElementRef} />
                           ) : (
                               <CardEventLoc event={event} />
                           )
