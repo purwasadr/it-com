@@ -47,7 +47,7 @@ const Navbar = () => {
                     <ul className="flex flex-row flex-wrap pl-4 text-sm font-medium">
                         <NavbarLink href="/" caption="Home" />
                         <NavbarLink href="/divisions" caption="Division" />
-                        <NavbarLink href="#" caption="Contact" />
+                        <NavbarLink href="/contacts" caption="Contact" />
                     </ul>
                 </div>
                 <div className="md:hidden relative">
@@ -68,7 +68,7 @@ const Navbar = () => {
                             </Menu.Item>
                             <Menu.Item>
                                 {({active}) => (
-                                    <MenuLink active={active} href="#">Contact</MenuLink>
+                                    <MenuLink active={active} href="/contacts">Contact</MenuLink>
                                 )}
                             </Menu.Item>
                         </Menu.Items>
