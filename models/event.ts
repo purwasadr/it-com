@@ -27,6 +27,9 @@ const qEvents = (operator: string) =>
                 [operator]: new Date().toISOString(),
             },
         },
+        pagination: {
+            pageSize: 10,
+        }
     });
 
 const getUpcomingEvents = () =>
