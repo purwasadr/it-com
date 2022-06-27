@@ -1,7 +1,6 @@
 import { Contact } from 'models/contact';
 import { Division } from 'models/division';
 import { Event, EventItem } from 'models/event';
-import { ResEvent } from '../types/types';
 
 export const toEvents = (data: any[]) => {
     return data.map((event: any): EventItem => ({
