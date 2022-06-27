@@ -2,22 +2,14 @@ import Button from '@/components/button';
 import { toEvent } from 'utils/transform';
 import {GetServerSideProps, NextPage} from 'next';
 import Image from 'next/image';
-import qs from 'qs';
 import {removeUndefined} from 'utils';
 import EventModel, {Event} from 'models/event';
 
-const qEvents = qs.stringify({
-    populate: '*',
-});
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
-        const id = Number(ctx.params?.id)
-        if (isNaN(id)) return {
-            notFound: true,
-        }
+        const slug = String(ctx.params?.slug);
 
-        const event = await EventModel.getEvent(id);
+        const event = await EventModel.getEvent(slug);
 
         console.log('resEvent:', event);
 
