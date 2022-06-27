@@ -7,7 +7,7 @@ interface Props {
     isDropdown?: boolean;
 }
 
-const NavbarLink: FC<Props> = ({href, caption, isDropdown = false}) => {
+const NavbarLink = ({href, caption, isDropdown = false}: Props) => {
     return (
         <li>
             <Link href={href}>
