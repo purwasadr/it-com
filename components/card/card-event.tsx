@@ -49,7 +49,7 @@ const CardEvent = ({
                             </div>
                         )}
 
-                        <h5 className="mt-2 font-medium text-gray-900 dark:text-white">
+                        <h5 className="mt-2 font-medium text-gray-900 line-clamp-2 dark:text-white">
                             {title}
                         </h5>
                         <p className="inline-flex items-center mt-2 text-gray-700 dark:text-gray-400">
