@@ -1,18 +1,18 @@
 import Link from 'next/link';
-import {FC} from 'react';
+import {FC, ReactNode} from 'react';
 
 interface Props {
     href: string;
-    caption: string;
+    children: ReactNode;
     isDropdown?: boolean;
 }
 
-const NavbarLink = ({href, caption, isDropdown = false}: Props) => {
+const NavbarLink = ({href, children, isDropdown = false}: Props) => {
     return (
         <li>
             <Link href={href}>
                 <a className="inline-flex items-center py-2 pr-4 pl-8 text-gray-700 cursor-pointer dark:hover:text-white dark:text-gray-400">
-                    {caption}
+                    {children}
                     {isDropdown && (
                         <svg
                             className="ml-1 w-4 h-4"
