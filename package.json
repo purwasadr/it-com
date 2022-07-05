@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
+    "@tailwindcss/line-clamp": "^0.4.0",
     "@types/qs": "^6.9.7",
-    "next": "12.1.6",
+    "next": "12.2.0",
     "qs": "^6.10.3",
     "react": "18.1.0",
     "react-dom": "18.1.0"
