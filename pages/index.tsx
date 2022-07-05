@@ -86,7 +86,7 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                         {upcomingEvents.data?.map((event: any) => (
                             <CardEvent
                                 className="md:flex-shrink-0"
-                                href={`/events/detail/${event.id}`}
+                                href={`/events/detail/${event.slug}`}
                                 key={event.id}
                                 title={event.title}
                                 poster={
@@ -114,7 +114,7 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                         {historyEvents.data?.map((event: any) => (
                             <CardEvent
                                 className="flex-shrink-0"
-                                href={`/events/detail/${event.id}`}
+                                href={`/events/detail/${event.slug}`}
                                 key={event.id}
                                 title={event.title}
                                 poster={

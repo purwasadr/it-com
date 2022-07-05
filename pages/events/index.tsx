@@ -5,7 +5,7 @@ import {useCallback, useRef, useState} from 'react';
 const CardEventLoc = ({ event, lastElementRef }: { event: any, lastElementRef?: (node: any) => void}) => {
     return <CardEvent
                 className=""
-                href={`/events/detail/${event.id}`}
+                href={`/events/detail/${event.slug}`}
                 key={event.id}
                 title={event.title}
                 poster={
