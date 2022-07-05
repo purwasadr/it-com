@@ -37,6 +37,7 @@ export const toDivisions = (data: any[]) => {
 export const toContacts = (data: any[]) => {
     return data.map((item): Contact => ({
         id: item.id,
-        name: item.name
+        name: item.name,
+        link: item.link
     }));
 }
