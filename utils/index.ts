@@ -10,6 +10,20 @@ export const removeUndefined = <T,>(props: T): T =>
     Object.entries(props).filter(([, value]) => value !== undefined),
   ) as T;
 
+// Hack needed to avoid JSON-Serialization validation error from Next.js https://github.com/zeit/next.js/discussions/11209
+// >>> Reason: `undefined` cannot be serialized as JSON. Please use `null` or omit this value all together.
+export const deleteUndefined = (obj: Record<string, any> | undefined): void => {
+  if (obj) {
+      Object.keys(obj).forEach((key: string) => {
+          if (obj[key] && typeof obj[key] === 'object') {
+              deleteUndefined(obj[key]);
+          } else if (typeof obj[key] === 'undefined') {
+              delete obj[key];
+          }
+      });
+  }
+};
+
 /**
  * @param  {Array<string|undefined>} ...strings
  * 
