@@ -45,9 +45,9 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:flex md:items-center">
                     <ul className="flex flex-row flex-wrap pl-4 text-sm font-medium">
-                        <NavbarLink href="/" caption="Home" />
-                        <NavbarLink href="/divisions" caption="Division" />
-                        <NavbarLink href="/contacts" caption="Contact" />
+                        <NavbarLink href="/">Home</NavbarLink>
+                        <NavbarLink href="/divisions">Division</NavbarLink>
+                        <NavbarLink href="/contacts">Contact</NavbarLink>
                     </ul>
                 </div>
                 <div className="md:hidden relative">
