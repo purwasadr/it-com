@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import { FC, ReactNode } from 'react';
+import FacebookIcon from '../icon/facebook-icon';
+import InstagramIcon from '../icon/instagram-icon';
 import Navbar from '../navbar/navbar';
 
 interface Props {
@@ -21,7 +23,7 @@ const Primary = ({ noPadding = false, children }: Props) => {
             </main>
             <footer className='px-5 sm:px-8'>
                 <hr />
-                <span className="inline-flex py-8">
+                <span className="flex py-8">
                     <svg className='h-[20px] w-[20px]' version="1.1" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 310 310">
                         <path id="XMLID_827_" d="M302.973,57.388c-4.87,2.16-9.877,3.983-14.993,5.463c6.057-6.85,10.675-14.91,13.494-23.73
@@ -37,16 +39,12 @@ const Primary = ({ noPadding = false, children }: Props) => {
                             c0-1.826-0.028-3.67-0.084-5.508c11.623-8.757,21.63-19.355,29.773-31.536c1.237-1.85,1.103-4.295-0.33-5.998
                             C307.394,57.037,305.009,56.486,302.973,57.388z"/>
                     </svg>
-                    <svg className="h-[20px] w-[20px] ml-6" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60.734 60.733">
-                        <path d="M57.378,0.001H3.352C1.502,0.001,0,1.5,0,3.353v54.026c0,1.853,1.502,3.354,3.352,3.354h29.086V37.214h-7.914v-9.167h7.914
-                            v-6.76c0-7.843,4.789-12.116,11.787-12.116c3.355,0,6.232,0.251,7.071,0.36v8.198l-4.854,0.002c-3.805,0-4.539,1.809-4.539,4.462
-                            v5.851h9.078l-1.187,9.166h-7.892v23.52h15.475c1.852,0,3.355-1.503,3.355-3.351V3.351C60.731,1.5,59.23,0.001,57.378,0.001z"/>
-                    </svg>
-                    <svg className="h-[20px] w-[20px] ml-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16Z" stroke="currentColor" strokeWidth="1.5"/>
-                        <path d="M17.5 6.51L17.51 6.49889" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <a className="h-[20px] w-[20px] ml-6" href='https://facebook.com/itcsmanra' target="_blank" rel="noreferrer">
+                        <FacebookIcon />
+                    </a>
+                    <a className="h-[20px] w-[20px] ml-6" href="https://instagram.com/itcom.smanra" target="_blank" rel="noreferrer">
+                        <InstagramIcon />
+                    </a>
                 </span>
             </footer>
         </>
