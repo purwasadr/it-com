@@ -1,19 +1,19 @@
 import ContactModel, { Contact } from 'models/contact';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { removeUndefined } from 'utils';
-import { toContacts } from 'utils/transform';
+import { deleteUndefined } from 'utils';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
         const contacts = await ContactModel.getContacts();
-        
+        deleteUndefined(contacts);
+
         return {
-            props: removeUndefined({ 
+            props: { 
                 contacts: {
-                    data: toContacts(contacts.data)
+                    data: contacts
                 }
-            }),
+            },
         };
     } catch (error) {
         return {
@@ -42,11 +42,9 @@ const ContactIndex: NextPage<PageProps> = ({ contacts }) => {
             </h1>
             <section className="flex flex-col items-center space-y-4 mt-6">
                 {contacts.data?.map((item: any) => (
-                    <Link key={item.id} href={`/divisions/`}>
-                        <a className="md:max-w-lg w-full rounded-lg py-4 border font-monumentExtended text-center">
-                            {item.name}
-                        </a>
-                    </Link>
+                    <a key={item.id} target="_blank" href={item.link ?? '#'} rel="noreferrer" className="md:max-w-lg w-full rounded-lg py-4 border font-monumentExtended text-center">
+                        {item.name}
+                    </a>
                 ))}
             </section>
         </>
