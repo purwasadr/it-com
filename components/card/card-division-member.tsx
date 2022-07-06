@@ -25,7 +25,7 @@ const CardDivisionMember = ({
                     className=""
                     src={photo}
                     layout="fill"
-                    alt="Poster"
+                    alt="Photo Profile"
                     objectFit="cover"
                 />
             </div>
