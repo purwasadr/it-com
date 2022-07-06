@@ -4,6 +4,7 @@ import qs from 'qs';
 export interface Event {
     id: number;
     title?: string;
+    slug?: string;
     description?: string;
     poster?: string;
     eventTypes?: any[];
@@ -14,6 +15,7 @@ export interface Event {
 export interface EventItem {
     id: number;
     title?: string;
+    slug?: string;
     poster?: string;
     eventTypes?: any[];
     date?: string;
@@ -42,14 +44,25 @@ const getHistoryEvents = () =>
         process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvents('$lt')}`
     ).then((res) => res.json());
 
-const getEvent = (id: number) => {
+const getEvent = async (slug: string) => {
     const qEvent = qs.stringify({
         populate: '*',
+        filters: {
+            slug: {
+                $eq: slug
+            }
+        }
     });
 
-    return fetchGet(
-        process.env.NEXT_PUBLIC_BACKEND_API + `/api/events/${id}?${qEvent}`
+    const data = await fetchGet(
+        process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvent}`
     ).then((res) => res.json());
+
+
+    return {
+        ...data,
+        data: data.data[0] ?? undefined
+    }
 }
     
 
