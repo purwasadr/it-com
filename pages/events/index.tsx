@@ -1,6 +1,7 @@
 import CardEvent from '@/components/card/card-event';
 import useEventPaging from 'libs/useEventPaging';
 import {useCallback, useRef, useState} from 'react';
+import { getDateShort } from 'utils/datetime';
 
 const CardEventLoc = ({ event, lastElementRef }: { event: any, lastElementRef?: (node: any) => void}) => {
     return <CardEvent
@@ -14,7 +15,7 @@ const CardEventLoc = ({ event, lastElementRef }: { event: any, lastElementRef?: 
                 }
                 eventTypes={event.eventTypes}
                 inputRef={lastElementRef}
-                date={new Date(event.date).toDateString()}
+                date={getDateShort(event.date)}
                 />
 }
 

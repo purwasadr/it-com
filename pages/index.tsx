@@ -6,6 +6,7 @@ import {toEvents} from 'utils/transform';
 import ButtonLink from '@/components/button-link';
 import EventModel, {EventItem} from 'models/event';
 import {removeUndefined} from 'utils';
+import { getDateShort } from 'utils/datetime';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -122,7 +123,7 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                                     event.poster
                                 }
                                 eventTypes={event.eventTypes}
-                                date={new Date(event.date).toDateString()}
+                                date={getDateShort(event.date)}
                             />
                         ))}
                         {!historyEvents.data ? (
