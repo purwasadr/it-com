@@ -14,7 +14,7 @@ function useEventPaging(pageNum: number) {
         populate: '*',
         pagination: {
             page: pageNum,
-            pageSize: 5,
+            pageSize: 20,
         }
     });
 
@@ -25,7 +25,7 @@ function useEventPaging(pageNum: number) {
 
     fetchGet(process.env.NEXT_PUBLIC_BACKEND_API +
         `/api/events?${qEvents}`, { signal:  abortController.signal })
-        .then(res => res.json())
+      .then(res => res.json())
       .then((res) => {
         const trData = toEvents(res.data);
         setEvents((prev: any[]) => {
