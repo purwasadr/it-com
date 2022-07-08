@@ -4,6 +4,7 @@ import {GetServerSideProps, NextPage} from 'next';
 import Image from 'next/image';
 import {removeUndefined} from 'utils';
 import EventModel, {Event} from 'models/event';
+import { getDateShort } from 'utils/datetime';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
@@ -75,9 +76,7 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
                         </svg>
 
                         <span className="ml-[6px] text-sm font-medium text-slate-900">
-                            {event.data?.date
-                                ? new Date(event.data?.date).toDateString()
-                                : '-'}
+                            {getDateShort(event.data?.date)}
                         </span>
                     </article>
                     <article className="flex items-center mt-2 text-gray-500 dark:text-gray-400">
