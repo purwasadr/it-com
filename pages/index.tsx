@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
             }),
         };
     } catch (error) {
-        console.log('Error in gssp:', (error as Error).message);
         return {
             props: {
                 upcomingEvents: {
@@ -95,7 +94,7 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                                     event.poster
                                 }
                                 eventTypes={event.eventTypes}
-                                date={new Date(event.date).toDateString()}
+                                date={getDateShort(event.date)}
                             />
                         ))}
                         {!upcomingEvents.data ? (
