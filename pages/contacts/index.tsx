@@ -31,7 +31,6 @@ interface PageProps {
 }
 
 const ContactIndex: NextPage<PageProps> = ({ contacts }) => {
-    console.log('Contacts: ', contacts.data);
     
     return (
         <>
