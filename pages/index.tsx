@@ -5,7 +5,6 @@ import {GetServerSideProps} from 'next';
 import {toEvents} from 'utils/transform';
 import ButtonLink from '@/components/button-link';
 import EventModel, {EventItem} from 'models/event';
-import {removeUndefined} from 'utils';
 import { getDateShort } from 'utils/datetime';
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -21,14 +20,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
         ]);
 
         return {
-            props: removeUndefined({
+            props: {
                 upcomingEvents: {
                     data: toEvents(resUpcomingEvents.data),
                 },
                 historyEvents: {
                     data: toEvents(resHistoryEvents.data),
                 },
-            }),
+            },
         };
     } catch (error) {
         return {
