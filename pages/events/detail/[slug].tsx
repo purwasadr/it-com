@@ -100,7 +100,7 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
             <section className="flex flex-col md:flex-row flex-nowrap gap-x-10 mt-4">
                 <section className="w-full md:w-4/6">
                     <h3 className="text-xl font-medium">Event Description</h3>
-                    <p className="mt-2 text-sm text-slate-700">
+                    <p className="mt-2 text-sm text-slate-700 whitespace-pre-line">
                         {event.data?.description}
                     </p>
                 </section>
