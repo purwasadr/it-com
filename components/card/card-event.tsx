@@ -4,10 +4,10 @@ import Tag from '../tag/tag';
 
 export interface Props {
     className?: string;
-    title: string;
-    poster: string;
+    title?: string;
+    poster?: string;
     date?: string;
-    eventTypes: any[];
+    eventTypes?: any[];
     inputRef?: (node: any) => void;
     href?: string;
 }
@@ -15,7 +15,7 @@ export interface Props {
 const CardEvent = ({
     className = '',
     title,
-    poster = '/',
+    poster,
     eventTypes,
     date,
     inputRef,
@@ -29,18 +29,18 @@ const CardEvent = ({
                     className={`w-full h-full md:w-[260px] bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-100 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
                 >
                     <div className="relative aspect-[4/3]">
-                        <Image
+                    {poster && (<Image
                             className=""
                             src={poster}
                             layout="fill"
                             alt="Poster"
                             objectFit="cover"
-                        />
+                        />)}   
                     </div>
                     <div className="p-3.5">
-                        {getOrNull(eventTypes.length) && (
+                        {getOrNull(eventTypes?.length) && (
                             <div className="flex flex-wrap gap-2">
-                                {eventTypes.map((eventType) => (
+                                {eventTypes?.map((eventType) => (
                                     <Tag
                                         key={eventType.id}
                                         caption={eventType.name}
