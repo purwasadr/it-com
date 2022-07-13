@@ -1,8 +1,9 @@
 import {fetchGet} from 'libs/fetch';
 import qs from 'qs';
+import { toEvent } from 'utils/transform';
 
 export interface Event {
-    id: number;
+    id?: number;
     title?: string;
     slug?: string;
     description?: string;
@@ -59,10 +60,7 @@ const getEvent = async (slug: string) => {
     ).then((res) => res.json());
 
 
-    return {
-        ...data,
-        data: data.data[0] ?? undefined
-    }
+    return data.data[0] ? toEvent(data.data[0]) : undefined;
 }
     
 
