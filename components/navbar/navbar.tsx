@@ -32,8 +32,8 @@ MenuLink.displayName = 'MenuLink'
 const Navbar = () => {
 
     return (
-        <nav className="sticky top-0 z-10 px-2 sm:px-4 py-2.5 border-b border-gray-200 bg-white dark:bg-gray-800">
-            <div className="flex flex-wrap max-w-[90rem] justify-between items-center px-3 lg:px-4 mx-auto">
+        <nav className="sticky top-0 z-10 py-2.5 border-b border-gray-200 bg-white dark:bg-gray-800">
+            <div className="flex flex-wrap max-w-[90rem] justify-between items-center px-5 lg:px-8 mx-auto">
                 <div className="flex items-center w-auto">
                     <Link href="/">
                         <a className="flex items-center">
