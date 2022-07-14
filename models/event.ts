@@ -11,6 +11,7 @@ export interface Event {
     eventTypes?: any[];
     date?: string;
     location?: string;
+    registerLink?: string;
 }
 
 export interface EventItem {
