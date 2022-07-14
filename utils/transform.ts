@@ -15,14 +15,15 @@ export const toEvents = (data: any[]) => {
 
 export const toEvent = (data: any): Event => {
     return {
-            id: data.id,
-            title: data.title,
-            slug: data.slug,
-            description: data.description,
-            poster: data.poster.formats.small.url,
-            eventTypes: data.event_types,
-            date: data.date,
-            location: data.location
+            id: data?.id,
+            title: data?.title,
+            slug: data?.slug,
+            description: data?.description,
+            poster: data?.poster?.formats?.small?.url,
+            eventTypes: data?.event_types,
+            date: data?.date,
+            location: data?.location,
+            registerLink: data?.register_link
         }
 }
 
