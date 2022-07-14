@@ -1,11 +1,11 @@
 import CardEvent from '@/components/card/card-event';
-import type {InferGetServerSidePropsType, NextPage} from 'next';
+import type {NextPage} from 'next';
 import Image from 'next/image';
 import {GetServerSideProps} from 'next';
-import {toEvents} from 'utils/transform';
 import ButtonLink from '@/components/button-link';
 import EventModel, {EventItem} from 'models/event';
 import { getDateShort } from 'utils/datetime';
+import { deleteUndefined } from 'utils';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -19,13 +19,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
             res[1],
         ]);
 
+        deleteUndefined(resUpcomingEvents);
+        deleteUndefined(resHistoryEvents);
+
         return {
             props: {
                 upcomingEvents: {
-                    data: toEvents(resUpcomingEvents.data),
+                    data: resUpcomingEvents
                 },
                 historyEvents: {
-                    data: toEvents(resHistoryEvents.data),
+                    data: resHistoryEvents,
                 },
             },
         };
@@ -78,25 +81,23 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                     </h3>
 
                     <section
-                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4 ${
-                            upcomingEvents.data?.length ? '' : ''
-                        }`}
+                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4`}
                     >
-                        {upcomingEvents.data?.map((event: any) => (
+                        {upcomingEvents.data?.map((event) => (
                             <CardEvent
                                 className="md:flex-shrink-0"
                                 href={`/events/detail/${event.slug}`}
                                 key={event.id}
                                 title={event.title}
                                 poster={
-                                    process.env.NEXT_PUBLIC_BACKEND_API +
-                                    event.poster
+                                    event.poster ?
+                                    process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
                                 }
                                 eventTypes={event.eventTypes}
                                 date={getDateShort(event.date)}
                             />
                         ))}
-                        {!upcomingEvents.data ? (
+                        {!upcomingEvents.data?.length ? (
                             <p className="text-center">No event yet</p>
                         ) : (
                             ''
@@ -117,14 +118,14 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                                 key={event.id}
                                 title={event.title}
                                 poster={
-                                    process.env.NEXT_PUBLIC_BACKEND_API +
-                                    event.poster
+                                    event.poster ?
+                                    process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
                                 }
                                 eventTypes={event.eventTypes}
                                 date={getDateShort(event.date)}
                             />
                         ))}
-                        {!historyEvents.data ? (
+                        {!historyEvents.data?.length ? (
                             <p className="text-center">No event yet</p>
                         ) : (
                             ''
