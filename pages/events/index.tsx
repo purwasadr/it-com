@@ -10,8 +10,7 @@ const CardEventLoc = ({ event, lastElementRef }: { event: any, lastElementRef?: 
                 key={event.id}
                 title={event.title}
                 poster={
-                    process.env.NEXT_PUBLIC_BACKEND_API +
-                    event.poster
+                    event.poster ? process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
                 }
                 eventTypes={event.eventTypes}
                 inputRef={lastElementRef}
@@ -41,7 +40,7 @@ const Events = () => {
     return (
         <>
             <div
-                className={`grid sm:grid-cols-[repeat(2,260px)] lg:grid-cols-[repeat(3,260px)] xl:grid-cols-[repeat(4,260px)] gap-4 place-content-center ${
+                className={`grid grid-cols-1  sm:grid-cols-[repeat(2,260px)] lg:grid-cols-[repeat(3,260px)] xl:grid-cols-[repeat(4,260px)] gap-4 place-content-center ${
                     events.length ? '' : ''
                 }`}
             >
