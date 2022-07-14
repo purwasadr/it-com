@@ -30,7 +30,6 @@ const CardEvent = ({
                 >
                     <div className="relative aspect-[4/3]">
                     {poster && (<Image
-                            className=""
                             src={poster}
                             layout="fill"
                             alt="Poster"
@@ -39,7 +38,7 @@ const CardEvent = ({
                     </div>
                     <div className="p-3.5">
                         {getOrNull(eventTypes?.length) && (
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2 mb-2">
                                 {eventTypes?.map((eventType) => (
                                     <Tag
                                         key={eventType.id}
@@ -49,7 +48,7 @@ const CardEvent = ({
                             </div>
                         )}
 
-                        <h5 className="mt-2 font-medium text-gray-900 line-clamp-2 dark:text-white">
+                        <h5 className="font-medium text-gray-900 line-clamp-2 dark:text-white">
                             {title}
                         </h5>
                         <p className="inline-flex items-center mt-1.5 text-slate-500 dark:text-gray-400">
