@@ -1,6 +1,7 @@
 import {Menu} from '@headlessui/react';
 import Link from 'next/link';
 import { forwardRef } from 'react';
+import MenuDotsIcon from '../icon/menu-dots-icon';
 import NavbarLink from './navbar-link';
 
 interface PropsMenuLink {
@@ -52,8 +53,8 @@ const Navbar = () => {
                 </div>
                 <div className="md:hidden relative">
                     <Menu as="div">
-                        <Menu.Button className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                            <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="2" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="22" r="2"/></svg>
+                        <Menu.Button className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-slate-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                            <MenuDotsIcon className="w-6 h-6 text-slate-500 hover:text-slate-600" />
                         </Menu.Button>
                         <Menu.Items className="absolute right-0 mt-2 w-56 overflow-y-hidden divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
