@@ -4,6 +4,7 @@ import { fetchGet } from 'libs/fetch';
 import DivisionModel, { Division } from 'models/division';
 import { removeUndefined } from 'utils';
 import { toDivisions } from 'utils/transform';
+import Head from 'next/head';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
@@ -34,6 +35,10 @@ interface PageProps {
 const Divisions: NextPage<PageProps> = ({ divisions }) => {
     return (
         <>
+            <Head>
+                <title key="title">Divisions | IT Com</title>
+                <meta name="description" content="Halaman yang berisi divisi-divisi apa saja yang ada di ekstrakulikuler IT SMANRA" key="description" />
+            </Head>
             <h1 className="text-2xl text-center font-monumentExtended">
                 Division
                 <br />
@@ -41,7 +46,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
             </h1>
             <section className="mt-6 px-4 flex flex-col items-center space-y-4">
                 {divisions.data?.map((item: any) => (
-                    <Link key={item.id} href={`/divisions/${item.slug}`}>
+                    <Link key={item.id} href={`/divisions/detail/${item.slug}`}>
                         <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">
                             {item.name}
                         </a>
