@@ -6,15 +6,14 @@ import EventModel, {Event} from 'models/event';
 import { getDateShort } from 'utils/datetime';
 import LocationIcon from '@/components/icon/location-icon';
 import DateIcon from '@/components/icon/date-icon';
+import Head from 'next/head';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
         const slug = String(ctx.params?.slug);
 
         const event = await EventModel.getEvent(slug);
-
-        console.log('resEvent:', event);
-
+        
         deleteUndefined(event);
         return {
             props: {
@@ -42,11 +41,14 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
 
     return (
         <>
+            <Head>
+                <title key="title">{`${event.data?.title} | IT Com`}</title>
+                <meta name="description" content={event.data?.description} key="description" />
+            </Head>
             <section className="flex flex-col md:flex-row flex-nowrap md:space-x-10">
                 <section className="w-full md:w-4/6">
                     <figure className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] rounded-lg shadow-md overflow-hidden">
                       {event.data?.poster && (<Image
-                            className=""
                             src={process.env.NEXT_PUBLIC_BACKEND_API + event.data.poster}
                             alt="Poster Event"
                             layout="fill"
@@ -72,7 +74,6 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
                             </span>
                         </article>
                     </section>
-                    
                 </section>
             </section>
             <section className="flex flex-col md:flex-row flex-nowrap md:space-x-10 mt-4">
