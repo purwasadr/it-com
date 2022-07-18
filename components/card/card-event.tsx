@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import PictureIcon from '../icon/picture-icon';
 import Tag from '../tag/tag';
 
 export interface Props {
@@ -29,12 +30,16 @@ const CardEvent = ({
                     className={`w-full h-full md:w-[260px] bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-100 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
                 >
                     <div className="relative aspect-[4/3]">
-                    {poster && (<Image
+                    {poster ? (<Image
                             src={poster}
                             layout="fill"
                             alt="Poster"
                             objectFit="cover"
-                        />)}   
+                        />) : (
+                            <div className="p-10 w-full h-full bg-slate-500">
+                                <PictureIcon className="w-full h-full text-slate-400" />
+                            </div>
+                        )}   
                     </div>
                     <div className="p-3.5">
                         {getOrNull(eventTypes?.length) && (
