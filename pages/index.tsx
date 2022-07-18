@@ -6,6 +6,7 @@ import ButtonLink from '@/components/button-link';
 import EventModel, {EventItem} from 'models/event';
 import { getDateShort } from 'utils/datetime';
 import { deleteUndefined } from 'utils';
+import Head from 'next/head';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -55,6 +56,10 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
 
     return (
         <>
+            <Head>
+                <title key="title">Home | IT Com</title>
+                <meta name="description" content="IT Com adalah website yang dikelola oleh ekskul IT di SMANRA" key="description" />
+            </Head>
             <section>
                 <div className="relative w-full h-[520px]">
                     <Image
@@ -65,7 +70,7 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                     />
                     <div className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] w-fit h-fit">
                         <h3 className="text-2xl uppercase tracking-wider text-center font-monumentExtended font-extrabold text-white">
-                            IT Community <br /> SMA Negeri 1 Kartasura
+                            IT Community<br />SMA Negeri 1 Kartasura
                         </h3>
                         <p className="text-base text-center text-white mt-8">
                             Lorem, ipsum dolor sit amet consectetur adipisicing
