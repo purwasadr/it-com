@@ -1,6 +1,7 @@
 import CardDivisionMember from '@/components/card/card-division-member';
 import {fetchGet} from 'libs/fetch';
 import {GetServerSideProps, NextPage} from 'next';
+import Head from 'next/head';
 import qs from 'qs';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
