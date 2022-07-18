@@ -7,7 +7,7 @@ export const toEvents = (data: any[]) => {
             id: event.id,
             title: event.title,
             slug: event.slug,
-            poster: event.poster?.formats.small.url,
+            poster: event.poster?.formats?.small?.url,
             eventTypes: event.event_types,
             date: event.date,
         }))
