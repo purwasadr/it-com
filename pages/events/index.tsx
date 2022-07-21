@@ -39,10 +39,10 @@ const Events = () => {
 
     return (
         <>
+        
+        {/* sm:grid-cols-[repeat(2,260px)] lg:grid-cols-[repeat(3,260px)] xl:grid-cols-[repeat(4,260px)] */}
             <div
-                className={`grid grid-cols-1  sm:grid-cols-[repeat(2,260px)] lg:grid-cols-[repeat(3,260px)] xl:grid-cols-[repeat(4,260px)] gap-4 place-content-center ${
-                    events.length ? '' : ''
-                }`}
+                className={`grid grid-cols-[repeat(auto-fit,minmax(0,260px))] gap-4 place-content-center`}
             >
                 {events.map((event: any, i: number) =>
                           events.length === i + 1 ? (
