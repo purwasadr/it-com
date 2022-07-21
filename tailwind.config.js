@@ -8,9 +8,22 @@ module.exports = {
     extend: {
       fontFamily: {
         monumentExtended: ["Monument Extended", "sans-serif"],
-        poppins: ['Poppins', 'sans-serif']
-      }
+        poppins: ['Poppins', 'sans-serif'],
+        'general-sans': ['General Sans', 'sans-serif']
+      },
+      fontMetrics: {
+        'general-sans': {
+            capHeight: 718,
+            ascent: 1010,
+            descent: -240,
+            lineGap: 100,
+            unitsPerEm: 1000,
+        },
+      },
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require('tailwindcss-capsize')
+  ],
 }
