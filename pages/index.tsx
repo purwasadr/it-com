@@ -69,9 +69,9 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                         alt="jumbotron"
                     />
                     <div className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] w-fit h-fit">
-                        <h3 className="text-2xl uppercase tracking-wider text-center font-monumentExtended font-extrabold text-white">
+                        <h1 className="text-3xl uppercase tracking-wider text-center font-bold text-white">
                             IT Community<br />SMA Negeri 1 Kartasura
-                        </h3>
+                        </h1>
                         <p className="text-base text-center text-white mt-8">
                             Lorem, ipsum dolor sit amet consectetur adipisicing
                             elit. Quidem, debitis.
@@ -81,12 +81,12 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
             </section>
             <section className="max-w-[90rem] mx-auto">
                 <section>
-                    <h3 className="mt-12 text-2xl uppercase text-center font-monumentExtended">
+                    <h1 className="mt-12 text-2xl font-bold text-center">
                         Upcoming Events
-                    </h3>
+                    </h1>
 
                     <section
-                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4`}
+                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap mt-4 p-5 gap-4`}
                     >
                         {upcomingEvents.data?.map((event) => (
                             <CardEvent
