@@ -39,7 +39,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
                 <title key="title">Divisions | IT Com</title>
                 <meta name="description" content="Halaman yang berisi divisi-divisi apa saja yang ada di ekstrakulikuler IT SMANRA" key="description" />
             </Head>
-            <h1 className="text-2xl text-center font-monumentExtended">
+            <h1 className="text-center">
                 Division
                 <br />
                 IT COM GEN 9
@@ -47,7 +47,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
             <section className="mt-6 px-4 flex flex-col items-center space-y-4">
                 {divisions.data?.map((item: any) => (
                     <Link key={item.id} href={`/divisions/detail/${item.slug}`}>
-                        <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border font-monumentExtended text-center">
+                        <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border text-center">
                             {item.name}
                         </a>
                     </Link>
