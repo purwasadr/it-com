@@ -21,8 +21,7 @@ const Primary = ({ noPadding = false, children }: Props) => {
             <main className={`${!noPadding ? 'max-w-6xl min-h-screen py-6 px-5 lg:px-8 mx-auto' : ''}`}>
                 {children}
             </main>
-            <footer className='px-5 sm:px-8 bg-white'>
-                <hr />
+            <footer className='px-5 sm:px-8 bg-white border-t'>
                 <span className="flex py-8">
                     <svg className='h-[20px] w-[20px]' version="1.1" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 310 310">
