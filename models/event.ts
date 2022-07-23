@@ -52,7 +52,21 @@ const getHistoryEvents = async () => {
 
     return toEvents(req.data)
 }
-    
+
+const getLatestEvents = async () => {
+    const qsQuery = qs.stringify({
+        populate: '*',
+        pagination: {
+            pageSize: 8,
+        }
+    });
+
+    const req = await fetchGet(
+        process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qsQuery}`
+    ).then((res) => res.json());
+
+    return toEvents(req.data)
+}
 
 const getEvent = async (slug: string) => {
     const qEvent = qs.stringify({
@@ -76,6 +90,7 @@ const getEvent = async (slug: string) => {
 const EventModel = {
     getUpcomingEvents,
     getHistoryEvents,
+    getLatestEvents,
     getEvent
 };
 export default EventModel;
