@@ -10,36 +10,20 @@ import Head from 'next/head';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
-        const res = [
-            EventModel.getUpcomingEvents(),
-            EventModel.getHistoryEvents(),
-        ];
-
-        const [resUpcomingEvents, resHistoryEvents] = await Promise.all([
-            res[0],
-            res[1],
-        ]);
-
-        deleteUndefined(resUpcomingEvents);
-        deleteUndefined(resHistoryEvents);
+        const events = await EventModel.getLatestEvents();
+        deleteUndefined(events);
 
         return {
             props: {
-                upcomingEvents: {
-                    data: resUpcomingEvents
-                },
-                historyEvents: {
-                    data: resHistoryEvents,
+                events: {
+                    data: events
                 },
             },
         };
     } catch (error) {
         return {
             props: {
-                upcomingEvents: {
-                    error: 'Cannot get data',
-                },
-                historyEvents: {
+                events: {
                     error: 'Cannot get data',
                 },
             },
@@ -48,11 +32,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 interface PageProps {
-    upcomingEvents: {data?: EventItem[]; error?: string};
-    historyEvents: {data?: EventItem[]; error?: string};
+    events: {data?: EventItem[]; error?: string};
 }
 
-const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
+const Home: NextPage<PageProps> = ({events}) => {
 
     return (
         <>
@@ -73,22 +56,21 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                             IT Community<br />SMA Negeri 1 Kartasura
                         </h1>
                         <p className="text-base text-center text-white mt-8">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit. Quidem, debitis.
+                            SMA unggul, SMANRA jaya, maju bersama hebat semua
                         </p>
                     </div>
                 </div>
             </section>
             <section className="max-w-[90rem] mx-auto">
                 <section>
-                    <h1 className="mt-12 text-2xl font-bold text-center">
-                        Upcoming Events
+                    <h1 className="mt-12 text-center">
+                        Events
                     </h1>
 
                     <section
                         className={`flex flex-col md:flex-row md:justify-center md:flex-wrap mt-4 p-5 gap-4`}
                     >
-                        {upcomingEvents.data?.map((event) => (
+                        {events.data?.map((event) => (
                             <CardEvent
                                 className="md:flex-shrink-0"
                                 href={`/events/detail/${event.slug}`}
@@ -102,42 +84,12 @@ const Home: NextPage<PageProps> = ({upcomingEvents, historyEvents}) => {
                                 date={getDateShort(event.date)}
                             />
                         ))}
-                        {!upcomingEvents.data?.length ? (
+                        {!events.data?.length ? (
                             <p className="text-center">No event yet</p>
                         ) : (
                             ''
                         )}
                     </section>
-                </section>
-
-                <section>
-                    <h3 className="text-2xl mt-12 uppercase text-center font-monumentExtended">
-                        Event History
-                    </h3>
-
-                    <section className="flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4">
-                        {historyEvents.data?.map((event: any) => (
-                            <CardEvent
-                                className="flex-shrink-0"
-                                href={`/events/detail/${event.slug}`}
-                                key={event.id}
-                                title={event.title}
-                                poster={
-                                    event.poster ?
-                                    process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
-                                }
-                                eventTypes={event.eventTypes}
-                                date={getDateShort(event.date)}
-                            />
-                        ))}
-                        {!historyEvents.data?.length ? (
-                            <p className="text-center">No event yet</p>
-                        ) : (
-                            ''
-                        )}
-                    </section>
-                </section>
-                <section>
                     <div className="flex justify-center mt-4">
                         <ButtonLink href={'/events'} variant="outline">
                             See all events
