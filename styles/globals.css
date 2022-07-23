@@ -18,22 +18,19 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
-/* @font-face {
-    font-family: "Open Sans";
-    font-weight: normal;
-    font-style: normal;
-    src: url("../public/fonts/OpenSans-Regular.ttf");
-}
+@layer base {
+    h1 {
+        @apply text-2xl;
+        @apply font-semibold;
+    }
 
-@font-face {
-    font-family: "Open Sans";
-    font-weight: 700;
-    font-style: normal;
-    src: url("../public/fonts/OpenSans-SemiBold.ttf");
+    h2 {
+        @apply text-xl;
+        @apply font-semibold;
+    }
+
+    h3 {
+        @apply text-lg;
+        @apply font-semibold;
+    }
 }
-@font-face {
-    font-family: "Open Sans";
-    font-weight: bold;
-    font-style: normal;
-    src: url("../public/fonts/OpenSans-Bold.ttf");
-} */
