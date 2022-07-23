@@ -34,10 +34,8 @@ const ContactIndex: NextPage<PageProps> = ({ contacts }) => {
     
     return (
         <>
-            <h1 className="text-2xl text-center font-monumentExtended">
-                Contacts
-                <br />
-                IT COM GEN 9
+            <h1 className="text-center">
+                Contacts<br />IT COM GEN 9
             </h1>
             <section className="flex flex-col items-center space-y-4 mt-6">
                 {contacts.data?.map((item: any) => (
