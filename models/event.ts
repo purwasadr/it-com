@@ -12,6 +12,8 @@ export interface Event {
     date?: string;
     location?: string;
     registerLink?: string;
+    providedBy?: string;
+    providedByPhoto?: string;
 }
 
 export interface EventItem {
@@ -81,8 +83,7 @@ const getEvent = async (slug: string) => {
     const data = await fetchGet(
         process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qEvent}`
     ).then((res) => res.json());
-
-
+    
     return data.data[0] ? toEvent(data.data[0]) : undefined;
 }
     
