@@ -23,7 +23,9 @@ export const toEvent = (data: any): Event => {
             eventTypes: data?.event_types,
             date: data?.date,
             location: data?.location,
-            registerLink: data?.register_link
+            registerLink: data?.register_link,
+            providedBy: data?.provided_by,
+            providedByPhoto: data?.provided_by_photo?.formats?.thumbnail?.url
         }
 }
 
