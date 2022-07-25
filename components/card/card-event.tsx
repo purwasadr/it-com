@@ -36,8 +36,8 @@ const CardEvent = ({
                             alt="Poster"
                             objectFit="cover"
                         />) : (
-                            <div className="p-10 w-full h-full bg-slate-500">
-                                <PictureIcon className="w-full h-full text-slate-400" />
+                            <div className="p-10 w-full h-full bg-gray-500">
+                                <PictureIcon className="w-full h-full text-gray-400" />
                             </div>
                         )}   
                     </div>
