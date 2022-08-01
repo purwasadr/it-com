@@ -7,6 +7,7 @@ import { getDateShort } from 'utils/datetime';
 import LocationIcon from '@/components/icon/location-icon';
 import DateIcon from '@/components/icon/date-icon';
 import Head from 'next/head';
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
@@ -47,14 +48,14 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
     return (
         <>
             <Head>
-                <title key="title">{`${event.data?.title} | IT Com`}</title>
+                <title key="title">{`${event.data?.title} | IT Com SMAN 1 Kartasura`}</title>
                 <meta name="description" content={event.data?.description} key="description" />
             </Head>
             <section className="flex flex-col md:flex-row flex-nowrap md:space-x-8">
                 <section className="w-full md:w-[65%] lg:w-[70%]">
                     <figure className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-md md:rounded-lg shadow-sm md:shadow-md overflow-hidden">
                       {event.data?.poster && (<Image
-                            src={process.env.NEXT_PUBLIC_BACKEND_API + event.data.poster}
+                            src={BACKEND_MEDIA_PREFIX + event.data.poster}
                             alt="Poster Event"
                             layout="fill"
                             objectFit="cover"

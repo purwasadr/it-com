@@ -36,7 +36,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
     return (
         <>
             <Head>
-                <title key="title">Divisions | IT Com</title>
+                <title key="title">Divisions | IT Com SMAN 1 Kartasura</title>
                 <meta name="description" content="Halaman yang berisi divisi-divisi apa saja yang ada di ekstrakulikuler IT SMANRA" key="description" />
             </Head>
             <h1 className="text-center">
