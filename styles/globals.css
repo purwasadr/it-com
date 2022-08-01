@@ -34,3 +34,13 @@
         @apply font-semibold;
     }
 }
+
+.container-carousel {
+    overflow: visible !important;
+}
+
+.carousel-card-event-item {
+    @apply flex;
+    @apply justify-center;
+    @apply px-1.5;
+}
