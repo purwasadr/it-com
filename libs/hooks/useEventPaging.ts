@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { useState, useEffect } from "react";
-import { fetchGet } from './fetch';
-import { toEvents } from '../utils/transform';
+import { fetchGet } from '../fetch';
+import { toEvents } from '../../utils/transform';
 
 function useEventPaging(pageNum: number) {
   const [isLoading, setIsLoading] = useState(true);
