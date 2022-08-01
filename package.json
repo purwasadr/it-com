@@ -17,6 +17,7 @@
     "qs": "^6.10.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-multi-carousel": "^2.8.2",
     "sharp": "^0.30.7"
   },
   "devDependencies": {
