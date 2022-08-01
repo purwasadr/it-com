@@ -7,11 +7,15 @@ import EventModel, {EventItem} from 'models/event';
 import { getDateShort } from 'utils/datetime';
 import { deleteUndefined } from 'utils';
 import Head from 'next/head';
+import { useRef } from 'react';
+import Carousel from 'react-multi-carousel';
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
         const events = await EventModel.getLatestEvents();
-        deleteUndefined(events);
+        
+        if (events.length > 0) deleteUndefined(events);
 
         return {
             props: {
@@ -36,11 +40,41 @@ interface PageProps {
 }
 
 const Home: NextPage<PageProps> = ({events}) => {
+    const eventSliderRef = useRef<Carousel>(null);
+    
+    const responsive = {
+        xl: {
+            breakpoint: {min: 1280, max: 4000},
+            items: 5,
+            partialVisibilityGutter: 0,
+            // additionalTransfrom: 80
+        },
+        lg: {
+            breakpoint: {min: 1024, max: 1280},
+            items: 4,
+            // additionalTransfrom: 80
+        },
+        md: {
+            breakpoint: {min: 768 , max: 1023},
+            items: 3,
+            // additionalTransfrom: 80
+        },
+        sm: {
+            breakpoint: {min: 640, max: 768},
+            items: 2,
+            // additionalTransfrom: 80
+        },
+        xs: {
+            breakpoint: {min: 0, max: 640},
+            items: 1,
+        }
+    }
+
 
     return (
         <>
             <Head>
-                <title key="title">Home | IT Com</title>
+                <title key="title">IT Com SMAN 1 Kartasura</title>
                 <meta name="description" content="IT Com adalah website yang dikelola oleh ekskul IT di SMANRA" key="description" />
             </Head>
             <section>
@@ -66,31 +100,28 @@ const Home: NextPage<PageProps> = ({events}) => {
                     <h1 className="mt-12 text-center">
                         Events
                     </h1>
-
-                    <section
-                        className={`flex flex-col md:flex-row md:justify-center md:flex-wrap mt-4 p-5 gap-4`}
-                    >
-                        {events.data?.map((event) => (
-                            <CardEvent
-                                className="md:flex-shrink-0"
-                                href={`/events/detail/${event.slug}`}
-                                key={event.id}
-                                title={event.title}
-                                poster={
-                                    event.poster ?
-                                    process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
-                                }
-                                eventTypes={event.eventTypes}
-                                date={getDateShort(event.date)}
-                            />
-                        ))}
-                        {!events.data?.length ? (
-                            <p className="text-center">No event yet</p>
-                        ) : (
-                            ''
-                        )}
+                    <section>
+                     <div className="mt-6 overflow-hidden">
+                        <Carousel className="sm:mx-16 !overflow-visible" autoPlay={false} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
+                            {events.data?.map((event) => (
+                                <CardEvent
+                                    className="max-w-[260px] sm:max-w-none w-full "
+                                    href={`/events/detail/${event.slug}`}
+                                    key={event.id}
+                                    title={event.title}
+                                    poster={
+                                        event.poster ?
+                                        BACKEND_MEDIA_PREFIX + event.poster : undefined
+                                    }
+                                    eventTypes={event.eventTypes}
+                                    date={getDateShort(event.date)}
+                                />
+                                )) ?? []
+                            }
+                        </Carousel>
+                    </div>
                     </section>
-                    <div className="flex justify-center mt-4">
+                    <div className="flex justify-center mt-5">
                         <ButtonLink href={'/events'} variant="outline">
                             See all events
                         </ButtonLink>
