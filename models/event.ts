@@ -57,6 +57,7 @@ const getHistoryEvents = async () => {
 
 const getLatestEvents = async () => {
     const qsQuery = qs.stringify({
+        sort: ['createdAt:desc'],
         populate: '*',
         pagination: {
             pageSize: 8,
