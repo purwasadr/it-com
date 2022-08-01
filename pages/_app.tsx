@@ -1,6 +1,4 @@
 import '../styles/globals.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import 'react-multi-carousel/lib/styles.css';
 import type {AppProps} from 'next/app';
 import Primary from '@/components/layouts/primary';
