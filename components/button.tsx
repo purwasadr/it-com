@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import {MouseEventHandler, ReactNode} from 'react';
 
 interface Props {
     type?: 'submit' | 'button' | 'reset';
@@ -6,10 +6,16 @@ interface Props {
     className?: string;
     disabled?: boolean;
     children?: ReactNode;
+    onClick?:  MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const buttonClassDark =
+const darkClasses = 
     'dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700';
+
+const variants = {
+    fill: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500',
+    outline: 'bg-white text-slate-900 border border-gray-300 shadow-sm hover:bg-gray-100 focus:ring-slate-200'
+}
 
 const Button = ({
     type = 'submit',
@@ -17,21 +23,20 @@ const Button = ({
     className = '',
     disabled = false,
     children = '',
+    onClick,
 }: Props) => {
-    const variantClas =
-        variant === 'fill'
-            ? 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500'
-            : 'text-slate-900 bg-white border border-gray-300 shadow-sm hover:bg-gray-100 focus:ring-slate-200';
+    const variantClasses = variants[variant];
 
     return (
         <button
             type={type}
             className={
-                `${variantClas} focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 ${buttonClassDark} ${
+                `${variantClasses} focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 ${darkClasses} ${
                     disabled && 'opacity-25'
                 } ` + className
             }
             disabled={disabled}
+            onClick={onClick}
         >
             {children}
         </button>
