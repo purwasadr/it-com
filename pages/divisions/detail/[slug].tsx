@@ -1,4 +1,5 @@
 import CardDivisionMember from '@/components/card/card-division-member';
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
 import {fetchGet} from 'libs/fetch';
 import {GetServerSideProps, NextPage} from 'next';
 import Head from 'next/head';
@@ -30,9 +31,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         },
         {encodeValuesOnly: true}
     );
-
-    console.log('reqDivisionQuery:', reqDivisionQuery);
-    console.log('reqDivisionMemberQuery:', reqDivisionMemberQuery);
 
     try {
         const reqDivision = await fetchGet(
@@ -84,7 +82,7 @@ const DivisionMember: NextPage<PropsPage> = ({division, divisionMembers}) => {
                         key={item.id}
                         title={item.name}
                         photo={
-                            item.photo ? process.env.NEXT_PUBLIC_BACKEND_API + item.photo : undefined
+                            item.photo ? BACKEND_MEDIA_PREFIX + item.photo : undefined
                         }
                         role={item.role}
                         kelas={item.kelas}

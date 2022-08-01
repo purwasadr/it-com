@@ -1,5 +1,6 @@
 import CardEvent from '@/components/card/card-event';
-import useEventPaging from 'libs/useEventPaging';
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
+import useEventPaging from 'libs/hooks/useEventPaging';
 import {useCallback, useRef, useState} from 'react';
 import { getDateShort } from 'utils/datetime';
 
@@ -10,7 +11,7 @@ const CardEventLoc = ({ event, lastElementRef }: { event: any, lastElementRef?: 
                 key={event.id}
                 title={event.title}
                 poster={
-                    event.poster ? process.env.NEXT_PUBLIC_BACKEND_API + event.poster : undefined
+                    event.poster ? BACKEND_MEDIA_PREFIX + event.poster : undefined
                 }
                 eventTypes={event.eventTypes}
                 inputRef={lastElementRef}
