@@ -46,23 +46,18 @@ const Home: NextPage<PageProps> = ({events}) => {
         xl: {
             breakpoint: {min: 1280, max: 4000},
             items: 5,
-            partialVisibilityGutter: 0,
-            // additionalTransfrom: 80
         },
         lg: {
             breakpoint: {min: 1024, max: 1280},
             items: 4,
-            // additionalTransfrom: 80
         },
         md: {
             breakpoint: {min: 768 , max: 1023},
             items: 3,
-            // additionalTransfrom: 80
         },
         sm: {
             breakpoint: {min: 640, max: 768},
             items: 2,
-            // additionalTransfrom: 80
         },
         xs: {
             breakpoint: {min: 0, max: 640},
@@ -102,7 +97,7 @@ const Home: NextPage<PageProps> = ({events}) => {
                     </h1>
                     <section>
                      <div className="mt-6 overflow-hidden">
-                        <Carousel className="sm:mx-16 !overflow-visible" autoPlay={false} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
+                        <Carousel className="sm:mx-16 !overflow-visible" autoPlay={true} rewindWithAnimation={true} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
                             {events.data?.map((event) => (
                                 <CardEvent
                                     className="max-w-[260px] sm:max-w-none w-full "

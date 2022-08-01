@@ -86,7 +86,7 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
                         <div>
                             <div className="relative h-9 w-9 rounded-full overflow-hidden">
                                 {event.data?.providedByPhoto ?  
-                                    <Image src={process.env.NEXT_PUBLIC_BACKEND_API + event.data?.providedByPhoto} objectFit="cover" layout="fill" alt="Provided by Photo" /> 
+                                    <Image src={BACKEND_MEDIA_PREFIX + event.data?.providedByPhoto} objectFit="cover" layout="fill" alt="Provided by Photo" /> 
                                     :
                                     <div className="h-full w-full bg-gray-100"></div>
                                 }
