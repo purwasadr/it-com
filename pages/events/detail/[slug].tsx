@@ -11,9 +11,14 @@ import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
-        const slug = String(ctx.params?.slug);
-        const event = await EventModel.getEvent(slug);
+        const slug = ctx.params?.slug;
 
+        if (!slug) return {
+            notFound: true
+        }
+
+        const event = await EventModel.getEvent(slug.toString());
+        
         if (!event) {
             return {
                 notFound: true
