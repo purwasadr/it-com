@@ -1,29 +1,27 @@
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
+import { EventItem } from 'models/event';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getDateShort } from 'utils/datetime';
 import PictureIcon from '../icon/picture-icon';
 import Tag from '../tag/tag';
 
-export interface Props {
+export interface Props extends EventItem{
     className?: string;
-    title?: string;
-    poster?: string;
-    date?: string;
-    eventTypes?: any[];
     inputRef?: (node: any) => void;
-    href?: string;
 }
 
 const CardEvent = ({
     className = '',
     title,
+    slug,
     poster,
     eventTypes,
     date,
     inputRef,
-    href = '#',
 }: Props) => {
     return (
-        <Link href={href}>
+        <Link href={`/events/detail/${slug}`}>
             <a
                 className={`block w-full h-full bg-white rounded-md border shadow-sm border-gray-300 hover:bg-gray-100 cursor-pointer overflow-hidden focus:outline-none dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
                 ref={inputRef}
@@ -31,7 +29,7 @@ const CardEvent = ({
                 <div className="relative aspect-[4/3]">
                     {poster ? (
                         <Image
-                            src={poster}
+                            src={BACKEND_MEDIA_PREFIX + poster}
                             layout="fill"
                             alt="Poster"
                             objectFit="cover"
@@ -58,7 +56,7 @@ const CardEvent = ({
                         <span className="line-clamp-2">{title}</span>
                     </h5>
                     <p className="mt-4 font-medium text-slate-500 dark:text-gray-400 text-xs capsize">
-                        {date}
+                        {getDateShort(date)}
                     </p>
                 </div>
             </a>
