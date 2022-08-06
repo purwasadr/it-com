@@ -4,19 +4,18 @@ import Image from 'next/image';
 import {GetServerSideProps} from 'next';
 import ButtonLink from '@/components/button-link';
 import EventModel, {EventItem} from 'models/event';
-import { getDateShort } from 'utils/datetime';
 import { deleteUndefined } from 'utils';
 import Head from 'next/head';
 import { useRef } from 'react';
 import Carousel from 'react-multi-carousel';
-import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
+import { PropsData } from 'types/index';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
         const events = await EventModel.getLatestEvents();
         
         if (events.length > 0) deleteUndefined(events);
-
+        
         return {
             props: {
                 events: {
@@ -25,6 +24,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             },
         };
     } catch (error) {
+        
         return {
             props: {
                 events: {
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 interface PageProps {
-    events: {data?: EventItem[]; error?: string};
+    events: PropsData<EventItem[]>;
 }
 
 const Home: NextPage<PageProps> = ({events}) => {
@@ -79,48 +79,45 @@ const Home: NextPage<PageProps> = ({events}) => {
                         src="/images/jumbotron.jpg"
                         layout="fill"
                         alt="jumbotron"
+                        priority
                     />
                     <div className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] w-fit h-fit">
                         <h1 className="text-3xl uppercase tracking-wider text-center font-bold text-white">
                             IT Community<br />SMA Negeri 1 Kartasura
                         </h1>
-                        <p className="text-base text-center text-white mt-8">
-                            SMA unggul, SMANRA jaya, maju bersama hebat semua
+                        <p className="font-medium tracking-wide text-center text-white mt-7">
+                            SMA unggul, SMANRA jaya, maju bersama hebat semua !
                         </p>
                     </div>
                 </div>
             </section>
             <section className="max-w-[90rem] mx-auto">
                 <section>
-                    <h1 className="mt-12 text-center">
-                        Events
-                    </h1>
+                    <header>
+                        <h1 className="mt-12 text-center">
+                            Events
+                        </h1>
+                    </header> 
                     <section>
-                     <div className="mt-6 overflow-hidden">
-                        <Carousel className="sm:mx-16 !overflow-visible" autoPlay={true} rewindWithAnimation={true} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
-                            {events.data?.map((event) => (
-                                <CardEvent
-                                    className="max-w-[260px] sm:max-w-none w-full "
-                                    href={`/events/detail/${event.slug}`}
-                                    key={event.id}
-                                    title={event.title}
-                                    poster={
-                                        event.poster ?
-                                        BACKEND_MEDIA_PREFIX + event.poster : undefined
-                                    }
-                                    eventTypes={event.eventTypes}
-                                    date={getDateShort(event.date)}
-                                />
-                                )) ?? []
-                            }
-                        </Carousel>
-                    </div>
+                        <div className="mt-6 overflow-hidden">
+                            <Carousel className="sm:mx-16 !overflow-visible" autoPlay={true} rewindWithAnimation={true} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
+                                {events.data?.map((event) => (
+                                    <CardEvent
+                                        {...event}
+                                        className="max-w-[260px] sm:max-w-none w-full "
+                                        key={event.id}
+                                    />
+                                    )) ?? []
+                                }
+                            </Carousel>
+                        </div>
+                        <div className="flex justify-center mt-5">
+                            <ButtonLink href={'/events'} variant="outline">
+                                See all events
+                            </ButtonLink>
+                        </div>
                     </section>
-                    <div className="flex justify-center mt-5">
-                        <ButtonLink href={'/events'} variant="outline">
-                            See all events
-                        </ButtonLink>
-                    </div>
+                    
                 </section>
                 <div className="mt-4"></div>
             </section>
