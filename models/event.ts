@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {fetchGet} from 'libs/fetch';
 import qs from 'qs';
 import { toEvent, toEvents } from 'utils/transform';
@@ -64,11 +65,11 @@ const getLatestEvents = async () => {
         }
     });
 
-    const req = await fetchGet(
+    const req = await axios.get(
         process.env.NEXT_PUBLIC_BACKEND_API + `/api/events?${qsQuery}`
-    ).then((res) => res.json());
-
-    return toEvents(req.data)
+    );
+    
+    return toEvents(req.data.data);
 }
 
 const getEvent = async (slug: string) => {
