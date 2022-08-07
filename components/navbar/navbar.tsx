@@ -19,7 +19,7 @@ const MenuLink = forwardRef<HTMLAnchorElement, PropsMenuLink>(({ active, href, c
                     active
                         ? 'bg-gray-100'
                         : 'text-gray-900'
-                } inline-flex w-full items-center px-4 py-3 text-sm`}
+                } block w-full items-center px-4 py-3 text-sm font-medium`}
             {...rest}>
                 {children}
             </a>
