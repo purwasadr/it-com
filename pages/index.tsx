@@ -2,13 +2,13 @@ import CardEvent from '@/components/card/card-event';
 import type {NextPage} from 'next';
 import Image from 'next/image';
 import {GetServerSideProps} from 'next';
-import ButtonLink from '@/components/button-link';
+import ButtonLink from '@/components/button/button-link';
 import EventModel, {EventItem} from 'models/event';
 import { deleteUndefined } from 'utils';
 import Head from 'next/head';
 import { useRef } from 'react';
 import Carousel from 'react-multi-carousel';
-import { PropsData } from 'types/index';
+import { PropData } from 'types/index';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 interface PageProps {
-    events: PropsData<EventItem[]>;
+    events: PropData<EventItem[]>;
 }
 
 const Home: NextPage<PageProps> = ({events}) => {
