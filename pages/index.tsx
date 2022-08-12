@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { useRef } from 'react';
 import Carousel from 'react-multi-carousel';
 import { PropData } from 'types/index';
+import AngleIcon from '@/components/icon/angle-icon';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -100,7 +101,7 @@ const Home: NextPage<PageProps> = ({events}) => {
                     </header> 
                     <section>
                         <div className="mt-6 overflow-hidden">
-                            <Carousel className="sm:mx-16 !overflow-visible" autoPlay={true} rewindWithAnimation={true} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
+                            <Carousel className="sm:mx-16 !overflow-visible" customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow />} autoPlay={true} rewindWithAnimation={true} partialVisible={true} itemClass={"carousel-card-event-item"} rewind={true} ref={eventSliderRef} responsive={responsive}>
                                 {events.data?.map((event) => (
                                     <CardEvent
                                         {...event}
@@ -124,5 +125,27 @@ const Home: NextPage<PageProps> = ({events}) => {
         </>
     );
 };
+
+const CustomRightArrow = ({ onClick, ...rest }: any) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType }
+    } = rest;
+    // onMove means if dragging or swiping in progress.
+    return <button className="absolute right-[4%] h-11 w-11 p-2.5 bg-blue-700 text-white hover:bg-blue-800 focus:outline-none rounded-full shadow-md" onClick={() => onClick()}>
+        <AngleIcon />
+    </button>;
+  };
+
+const CustomLeftArrow = ({ onClick, ...rest }: any) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType }
+    } = rest;
+    // onMove means if dragging or swiping in progress.
+    return <button className="absolute left-[4%] h-11 w-11 p-2.5 bg-blue-700 text-white hover:bg-blue-800 focus:outline-none rounded-full shadow-md" onClick={() => onClick()}>
+        <AngleIcon face='left' />
+    </button>;
+  };
 
 export default Home;
