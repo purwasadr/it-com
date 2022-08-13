@@ -2,7 +2,7 @@ import Link from 'next/link';
 import {GetServerSideProps, NextPage} from 'next';
 import { fetchGet } from 'libs/fetch';
 import DivisionModel, { Division } from 'models/division';
-import { removeUndefined } from 'utils';
+import { deleteUndefined, removeUndefined } from 'utils';
 import { toDivisions } from 'utils/transform';
 import Head from 'next/head';
 
@@ -10,12 +10,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
         const divisions = await DivisionModel.getDivisions();
         
+        deleteUndefined(divisions);
         return {
-            props: removeUndefined({ 
+            props: { 
                 divisions: {
-                    data: toDivisions(divisions.data)
+                    data: divisions
                  }
-            }),
+            },
         };
     } catch (error) {
         return {
@@ -47,7 +48,7 @@ const Divisions: NextPage<PageProps> = ({ divisions }) => {
             <section className="mt-6 px-4 flex flex-col items-center space-y-4">
                 {divisions.data?.map((item: any) => (
                     <Link key={item.id} href={`/divisions/detail/${item.slug}`}>
-                        <a className="md:max-w-lg w-full rounded-lg px-6 py-4 border text-center">
+                        <a className="md:max-w-lg w-full bg-white rounded-lg px-6 py-4 border text-center">
                             {item.name}
                         </a>
                     </Link>
