@@ -1,4 +1,4 @@
-import Button from '@/components/button';
+import Button from '@/components/button/button';
 import {GetServerSideProps, NextPage} from 'next';
 import Image from 'next/image';
 import {deleteUndefined} from 'utils';
@@ -7,7 +7,11 @@ import { getDateShort } from 'utils/datetime';
 import LocationIcon from '@/components/icon/location-icon';
 import DateIcon from '@/components/icon/date-icon';
 import Head from 'next/head';
-import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
+import { APP_URL, BACKEND_MEDIA_PREFIX } from 'libs/constants';
+import FacebookIcon from '@/components/icon/facebook-icon';
+import { useRouter } from 'next/router';
+import LinkIcon from '@/components/icon/link-icon';
+import { Popover } from '@headlessui/react';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
@@ -49,6 +53,11 @@ interface PageProps {
 }
 
 const EventDetail: NextPage<PageProps> = ({event}) => {
+    const router = useRouter();
+
+    const handleClickCopyLink = (e: any) => {        
+        navigator.clipboard.writeText(`${APP_URL}${router.asPath}`);
+    }
 
     return (
         <>
@@ -111,9 +120,26 @@ const EventDetail: NextPage<PageProps> = ({event}) => {
                         {event.data?.description}
                     </p>
                 </section>
-                <section className="w-full md:w-[35%] lg:w-[30%] mt-4 md:mt-0">
+                <section className="w-full h-fit md:w-[35%] lg:w-[30%] mt-4 p-4 md:p-5 md:mt-0 bg-white rounded-md md:rounded-lg shadow-sm md:shadow-md">
+                    <section className="flex justify-evenly">
+                        <a className="block w-11 h-11 p-3 border rounded-full text-gray-900 hover:bg-gray-100" href={`https://facebook.com/sharer/sharer.php?u=${APP_URL}${router.asPath}`} target="_blank" rel="noreferrer">
+                            <FacebookIcon />
+                        </a>
+                        <Popover className="relative">
+                            <Popover.Button className="block w-11 h-11 p-3 border focus:outline-none rounded-full text-gray-900 hover:bg-gray-100" onClick={(e: any) => handleClickCopyLink(e)}> 
+                                <LinkIcon /> 
+                            </Popover.Button>
+
+                            <Popover.Panel className="absolute mt-2 z-10 p-3 bg-black bg-opacity-70 rounded-md">
+                                <div className="text-white text-sm whitespace-nowrap">
+                                    Link Copied
+                                </div>
+                            </Popover.Panel>
+                        </Popover>
+                       
+                    </section>
                     {event.data?.registerLink && 
-                        (<a className="" href={event.data?.registerLink} target="_blank" rel="noreferrer">
+                        (<a className="block mt-4" href={event.data?.registerLink} target="_blank" rel="noreferrer">
                             <Button className="w-full" variant="fill">Register</Button>
                         </a>)} 
                 </section>
