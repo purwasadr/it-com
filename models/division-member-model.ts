@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BACKEND_API } from 'libs/constants';
 import QueryString from 'qs';
-import { Result } from 'types/model';
 import { toDivisionMembers } from 'utils/transform';
 
 export interface DivisionMemberItem {
