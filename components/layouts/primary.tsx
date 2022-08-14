@@ -19,7 +19,7 @@ const Primary = ({ noPadding = false, children }: Props) => {
                 <link rel="icon" href="/favicon.ico" key="icon" />
             </Head>
             <Navbar/>
-            <main className={`${!noPadding ? 'max-w-6xl min-h-screen py-6 px-5 lg:px-8 mx-auto' : ''}`}>
+            <main className={`${!noPadding ? 'max-w-6xl min-h-screen py-6 px-4 sm:px-6 md:px-8 mx-auto' : ''}`}>
                 {children}
             </main>
             <footer className='px-5 sm:px-8 bg-white border-t'>
