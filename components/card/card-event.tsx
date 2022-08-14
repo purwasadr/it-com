@@ -41,7 +41,7 @@ const CardEvent = ({
                     )}
                 </div>
                 <div className="py-4 px-3.5">
-                    {getOrNull(eventTypes?.length) && (
+                    {eventTypes && eventTypes?.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3.5">
                             {eventTypes?.map((eventType) => (
                                 <Tag
@@ -65,7 +65,3 @@ const CardEvent = ({
 };
 
 export default CardEvent;
-
-function getOrNull<T>(item: T) {
-    return item ? item : null;
-}
