@@ -14,7 +14,7 @@ const darkClasses =
 
 const variants = {
     fill: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500',
-    outline: 'bg-white text-slate-900 border border-gray-300 shadow-sm hover:bg-gray-100 focus:ring-slate-200'
+    outline: 'bg-white text-slate-900 border border-gray-200 shadow-sm hover:bg-gray-100 focus:ring-slate-200'
 }
 
 const Button = ({
