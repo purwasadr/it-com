@@ -35,14 +35,13 @@ const ContactIndex: NextPage<PageProps> = ({ contacts }) => {
     return (
         <>
             <h1 className="text-center">
-                Contacts<br />IT COM GEN 9
+                About
             </h1>
-            <section className="flex flex-col items-center space-y-4 mt-6">
-                {contacts.data?.map((item: any) => (
-                    <a key={item.id} target="_blank" href={item.link ?? '#'} rel="noreferrer" className="md:max-w-lg w-full rounded-lg py-4 border font-monumentExtended text-center">
-                        {item.name}
-                    </a>
-                ))}
+            <section className="mt-7 bg-white rounded-md shadow-md py-4 px-4 h-96">
+                <p className="">
+                    ITCOM adalah Organisasi atau Ekskul yang bergerak dan mempelajari tentang perkembangan
+                    dan pemutakhiran teknologi di SMAN 1 Kartasura.
+                </p>
             </section>
         </>
     );
