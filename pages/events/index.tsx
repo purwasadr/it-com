@@ -1,8 +1,6 @@
 import CardEvent from '@/components/card/card-event';
-import {BACKEND_MEDIA_PREFIX} from 'libs/constants';
-import useEventPaging from 'libs/hooks/useEventPaging';
+import useEventPaging from 'hooks/useEventPaging';
 import {useCallback, useRef, useState} from 'react';
-import {getDateShort} from 'utils/datetime';
 
 const CardEventLoc = ({
     event,
