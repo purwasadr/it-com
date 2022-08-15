@@ -1,10 +1,11 @@
+import { BACKEND_MEDIA_PREFIX } from 'libs/constants';
 import Image from 'next/image';
 
 export interface Props {
     className?: string;
-    title: string;
-    photo: string;
-    role: string;
+    title?: string;
+    photo?: string;
+    role?: string;
     kelas?: string;
 }
 
@@ -17,17 +18,17 @@ const CardDivisionMember = ({
 }: Props) => {
     return (
         <div
-            className={`w-full md:w-[250px] bg-white rounded-md border border-opacity-20 border-black hover:bg-gray-100 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
+            className={`w-full md:w-[250px] bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
         >
             <h2 className="mt-4 text-xl text-center uppercase font-bold">{role}</h2>
             <div className="relative mt-4 aspect-square">
-                <Image
+                {photo && <Image
                     className=""
-                    src={photo}
+                    src={BACKEND_MEDIA_PREFIX + photo}
                     layout="fill"
                     alt="Photo Profile"
                     objectFit="cover"
-                />
+                />}
             </div>
             <div className="p-4">
                 <h5 className="text-center text-lg font-medium text-gray-900 dark:text-white">
