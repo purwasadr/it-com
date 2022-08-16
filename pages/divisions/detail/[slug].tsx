@@ -2,7 +2,6 @@ import CardDivisionMember from '@/components/card/card-division-member';
 import DivisionModel, { Division } from 'models/division';
 import DivisionMemberModel, { DivisionMemberItem } from 'models/division-member-model';
 import {GetServerSideProps, NextPage} from 'next';
-import Head from 'next/head';
 import { PropData } from 'types';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -62,7 +61,7 @@ const DivisionMember: NextPage<PropsPage> = ({division, divisionMembers}) => {
                 <br />
                 {division.data?.name}
             </h1>
-            <div className="flex flex-col md:flex-row md:justify-center md:flex-wrap p-8 gap-4">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(0,260px))] gap-4 place-content-center mt-8">
                 {divisionMembers.data?.map((item) => (
                     <CardDivisionMember
                         {...item}
