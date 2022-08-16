@@ -34,13 +34,21 @@ const ContactIndex: NextPage<PageProps> = ({ contacts }) => {
     
     return (
         <>
-            <h1 className="text-center">
-                About
-            </h1>
-            <section className="mt-7 bg-white rounded-md shadow-md py-4 px-4 h-96">
-                <p className="">
+            <section className="flex flex-col mt-2 bg-white rounded-md shadow-md py-6 px-4">
+                <h1 className="text-center">
+                    About
+                </h1>
+                <p className="mt-4 text-lg text-center text-gray-500">
                     ITCOM adalah Organisasi atau Ekskul yang bergerak dan mempelajari tentang perkembangan
                     dan pemutakhiran teknologi di SMAN 1 Kartasura.
+                </p>
+                <hr className='mt-5'/>
+                <p className="text-center mt-5 text-gray-500">
+                    Jl. Raya Solo - Yogyakarta No.Km -11, Dusun III, Pucangan, Kec. Kartasura, Kabupaten Sukoharjo, Jawa Tengah 57168
+                    <br />
+                    +6285831482204
+                    <br />
+                    smanraitc@gmail.com
                 </p>
             </section>
         </>
