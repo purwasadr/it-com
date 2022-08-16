@@ -1,3 +1,4 @@
+import clsxm from 'libs/clsxm';
 import {MouseEventHandler, ReactNode} from 'react';
 
 interface Props {
@@ -9,14 +10,6 @@ interface Props {
     onClick?:  MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const darkClasses = 
-    'dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700';
-
-const variants = {
-    fill: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500',
-    outline: 'bg-white text-slate-900 border border-gray-200 shadow-sm hover:bg-gray-100 focus:ring-slate-200'
-}
-
 const Button = ({
     type = 'submit',
     variant = 'outline',
@@ -25,15 +18,20 @@ const Button = ({
     children = '',
     onClick,
 }: Props) => {
-    const variantClasses = variants[variant];
-
     return (
         <button
             type={type}
             className={
-                `${variantClasses} focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 ${darkClasses} ${
-                    disabled && 'opacity-25'
-                } ` + className
+                clsxm(
+                    "focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium rounded-lg text-sm px-4 py-2.5",
+                    [ 
+                        variant === "fill" && "bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500",
+                        variant === "outline" && "bg-white text-slate-900 border border-gray-200 shadow-sm hover:bg-gray-100 focus:ring-slate-200"
+                    ],
+                    "dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700",
+                    disabled && 'opacity-25',
+                    className
+                )
             }
             disabled={disabled}
             onClick={onClick}
