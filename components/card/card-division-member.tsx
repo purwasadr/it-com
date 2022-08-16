@@ -18,10 +18,10 @@ const CardDivisionMember = ({
 }: Props) => {
     return (
         <div
-            className={`w-full md:w-[250px] bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
+            className={`w-full bg-white p-3.5 rounded-md border border-gray-200 shadow-sm overflow-hidden dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
         >
-            <h2 className="mt-4 text-xl text-center uppercase font-bold">{role}</h2>
-            <div className="relative mt-4 aspect-square">
+            
+            <div className="relative aspect-[7/5] rounded-md overflow-hidden">
                 {photo && <Image
                     className=""
                     src={BACKEND_MEDIA_PREFIX + photo}
@@ -30,13 +30,14 @@ const CardDivisionMember = ({
                     objectFit="cover"
                 />}
             </div>
-            <div className="p-4">
-                <h5 className="text-center text-lg font-medium text-gray-900 dark:text-white">
+            <div className="mt-3">
+                <h3 className="text-center font-medium text-gray-900 dark:text-white">
                     {title}
-                </h5>
-                <h5 className="mt-1 text-center text-md font-medium text-gray-700 dark:text-gray-400">
+                </h3>
+                <p className=" text-center font-medium text-blue-700">{role}</p>
+                <p className="mt-3 text-sm text-center text-gray-500 dark:text-gray-400">
                     {kelas}
-                </h5>
+                </p>
             </div>
         </div>
     );
