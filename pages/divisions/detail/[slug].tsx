@@ -20,9 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
                     DivisionMemberModel.getDivisionMembers(slug.toString())
                 ]
             );
-        
-        console.log('res[0]', res[0]);
-        
+                
         return {
             props: {
                 division: {
