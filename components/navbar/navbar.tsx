@@ -19,7 +19,7 @@ const MenuLink = forwardRef<HTMLAnchorElement, PropsMenuLink>(({ active, href, c
                     active
                         ? 'bg-gray-100'
                         : 'text-gray-900'
-                } block w-full items-center px-4 py-3 text-sm font-medium`}
+                } block w-full items-center px-4 py-3 text-sm`}
             {...rest}>
                 {children}
             </a>
@@ -48,7 +48,7 @@ const Navbar = () => {
                     <ul className="flex flex-row flex-wrap pl-4 text-sm font-medium">
                         <NavbarLink href="/">Home</NavbarLink>
                         <NavbarLink href="/divisions">Division</NavbarLink>
-                        <NavbarLink href="/contacts">Contact</NavbarLink>
+                        <NavbarLink href="/about">About</NavbarLink>
                     </ul>
                 </div>
                 <div className="md:hidden relative">
@@ -69,7 +69,7 @@ const Navbar = () => {
                             </Menu.Item>
                             <Menu.Item>
                                 {({active}) => (
-                                    <MenuLink active={active} href="/contacts">Contact</MenuLink>
+                                    <MenuLink active={active} href="/about">About</MenuLink>
                                 )}
                             </Menu.Item>
                         </Menu.Items>
