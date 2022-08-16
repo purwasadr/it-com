@@ -1,3 +1,6 @@
+const colors = require('tailwindcss/colors');
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: 'class',
   content: [
@@ -6,13 +9,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'primary': colors.blue[700],
+      },
       fontFamily: {
         monumentExtended: ["Monument Extended", "sans-serif"],
         poppins: ['Poppins', 'sans-serif'],
-        'general-sans': ['General Sans', 'sans-serif']
+        'primary': ['General Sans', 'sans-serif']
       },
       fontMetrics: {
-        'general-sans': {
+        'primary': {
             capHeight: 718,
             ascent: 1010,
             descent: -240,
