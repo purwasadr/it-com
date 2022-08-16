@@ -23,24 +23,27 @@ const CardEvent = ({
     return (
         <Link href={`/events/detail/${slug}`}>
             <a
-                className={`block w-full h-full bg-white rounded-md border shadow-sm border-gray-300 hover:bg-gray-100 cursor-pointer overflow-hidden focus:outline-none dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
+                className={`block w-full h-full p-3.5 bg-white rounded-md border shadow-sm border-gray-200 hover:bg-gray-50 cursor-pointer overflow-hidden focus:outline-none dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ${className}`}
                 ref={inputRef}
             >
-                <div className="relative aspect-[4/3]">
+                <div className="[&>*]:aspect-[7/5] [&>*]:rounded-md [&>*]:overflow-hidden">
                     {poster ? (
-                        <Image
-                            src={BACKEND_MEDIA_PREFIX + poster}
-                            layout="fill"
-                            alt="Poster"
-                            objectFit="cover"
-                        />
+                        <div className="relative">
+                            <Image
+                                src={BACKEND_MEDIA_PREFIX + poster}
+                                layout="fill"
+                                alt="Poster"
+                                objectFit="cover"
+                                />
+                        </div>
+                       
                     ) : (
                         <div className="p-10 w-full h-full bg-gray-500">
                             <PictureIcon className="w-full h-full text-gray-400" />
                         </div>
                     )}
                 </div>
-                <div className="py-4 px-3.5">
+                <div className="mt-4">
                     {eventTypes && eventTypes?.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3.5">
                             {eventTypes?.map((eventType) => (
